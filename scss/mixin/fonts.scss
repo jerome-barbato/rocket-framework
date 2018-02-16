@@ -1,0 +1,34 @@
+$font-families : ();
+
+@each $font in $fonts {
+
+  $family   : nth($font, 1);
+  $variant  : nth($font, 2);
+  $weight   : nth($font, 3);
+  $style    : nth($font, 4);
+  $stretch  : nth($font, 5);
+  $fallback : nth($font, 6);
+  $src      : #{$family}-#{$variant};
+
+  @font-face {
+    font-family: "#{$family}";
+    src: url('#{$font-path}/#{$src}.woff2') format('woff2'),
+    url('#{$font-path}/#{$src}.woff') format('woff');
+    font-weight: #{$weight};
+    font-style: #{$style};
+    font-stretch: #{$stretch};
+  }
+
+  @if not map-has-key($font-families, to-lower-case($family)){
+    $new-font: (to-lower-case($family): '#{$family}, #{$fallback}');
+    $font-families : map-merge($font-families, $new-font);
+  }
+}
+
+// include font with fallback
+@mixin font($name) {
+  $font : map-get($font-families, to-lower-case($name));
+  @if( $font ){
+    font-family: unquote($font);
+  }
+}

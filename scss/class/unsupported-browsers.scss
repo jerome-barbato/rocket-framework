@@ -1,0 +1,24 @@
+// Unsupported Browsers
+
+$unsupported-browsers: ie7, ie8, safari4!default;
+
+@if $unsupported-browsers{
+
+  %unsupported-browser{
+    height: 100%;
+    body{
+      height: 100%;
+      > *, &:before{ display: none!important; visibility: hidden!important }
+      &:after{
+        position: absolute; left: 0; width: 100%; top: 50%; margin-top: -0.5em;
+        content:'Your browser is too old and not supported anymore.';
+        font-family: Arial, sans-serif; text-align: center; font-size: 12px;
+      }
+    }
+  }
+
+  @each $unsupported-browser in $unsupported-browsers
+  {
+    html.#{$unsupported-browser}{ @extend %unsupported-browser }
+  }
+}

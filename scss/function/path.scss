@@ -1,0 +1,9 @@
+// Path
+$base-path  : '.'!default;
+
+$component-path :  $base-path+'/component/' !default;
+$font-path   :  $base-path+'/font/' !default;
+
+@function component-url($path){
+  @return url( $component-path + $path )
+}

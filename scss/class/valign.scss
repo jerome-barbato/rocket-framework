@@ -1,0 +1,11 @@
+.valign {
+  display: table!important; height: 100%; margin: auto; width: 100%;
+  &__middle, &__bottom , &__top {
+    display: table-cell!important; height: 100%; width: 100%;
+  }
+  &__middle { vertical-align: middle }
+  &__bottom { vertical-align: bottom }
+  &__top{ vertical-align: top }
+}
+
+.vcenter{ display: flex; align-items: center; flex-direction: column; justify-content: center; height: 100% }

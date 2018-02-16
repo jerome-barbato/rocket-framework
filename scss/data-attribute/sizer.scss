@@ -1,0 +1,21 @@
+@mixin data-sizer{
+
+  $sizers: "1/2" 1/2, "3/2" 3/2, "1/3" 1/3, "2/3" 2/3, "4/3" 4/3, "3/4" 3/4, "16/9" 16/9, "16/10" 16/10, "1/1" 1!default;
+
+  @each $sizer in $sizers
+  {
+    $name   : nth($sizer, 1);
+    $value  : nth($sizer, 2);
+
+    [data-sizer="#{$name}"], [sizer="#{$name}"]{
+      position: relative;
+      &:after {
+        display: block; content: ""; width: 100%; padding-top: (1/$value) * 100%;
+      }
+    }
+  }
+}
+
+@if (variable-exists(data-attributes) and index($data-attributes, 'sizer')) {
+  @include data-sizer;
+}

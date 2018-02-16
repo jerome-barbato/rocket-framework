@@ -1,0 +1,10 @@
+//include icon
+@mixin icon($name, $position:'before') {
+
+  @if($position == 'before'){
+    &:before{ @extend %icon, %icon-#{$name} }
+  }
+  @else{
+    &:after{ @extend %icon, %icon-#{$name} }
+  }
+}

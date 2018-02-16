@@ -1,0 +1,19 @@
+@function fit(){
+  @return  unquote("no-repeat center; background-size: 100% 100%;")
+}
+
+@function cover(){
+  @return  unquote("no-repeat center; background-size: cover;")
+}
+
+@function contain(){
+  @return  unquote("no-repeat center; background-size: contain;")
+}
+
+@function fit-height(){
+  @return  unquote("no-repeat center; background-size: auto 100%;")
+}
+
+@function fit-width(){
+  @return  unquote("no-repeat center; background-size: 100% auto;")
+}

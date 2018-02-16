@@ -1,0 +1,20 @@
+@function overlay($position:'absolute') {
+
+  @return unquote($position+'; left: 0; top: 0; right: 0; bottom: 0');
+}
+
+@function center($axis:false) {
+
+  @if( $axis == false ){
+
+    @return unquote('absolute; left: 50%; top: 50%; margin-top: -0.5em; margin-left: -0.5em; line-height: 100%');
+  }
+  @else if( $axis == 'x' ){
+
+    @return unquote('absolute; left: 50%; margin-left: -0.5em; line-height: 100%');
+  }
+  @else if( $axis == 'y' ){
+
+    @return unquote('absolute; top: 50%; margin-top: -0.5em; line-height: 100%');
+  }
+}

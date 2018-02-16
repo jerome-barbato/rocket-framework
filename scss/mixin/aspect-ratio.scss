@@ -1,0 +1,20 @@
+@mixin aspect-ratio($ratio) {
+  position: relative;
+  &:after {
+    display: block; content: ""; width: 100%; padding-top: (1/$ratio) * 100%;
+  }
+}
+
+@mixin remaining-aspect-ratio($ratio, $remain) {
+  position: relative;
+  &:after {
+    display: block; content: ""; width: 100%;
+    padding-top: ((((1/$ratio))*(1-$remain))/$remain) * 100%;
+  }
+}
+
+@mixin remove-aspect-ratio() {
+  &:after {
+    display: none
+  }
+}

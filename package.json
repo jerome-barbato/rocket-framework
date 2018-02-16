@@ -1,0 +1,24 @@
+{
+  "name": "rocket-sass-framework",
+  "version": "1.0.0",
+  "description": "Reset and framework",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wearemetabolism/rocket-sass-framework.git"
+  },
+  "keywords": [
+    "sass",
+    "reset",
+    "framework",
+    "css",
+    "scss"
+  ],
+  "author": {
+    "name": "Metabolism"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wearemetabolism/rocket-sass-framework/issues"
+  },
+  "homepage": "https://github.com/wearemetabolism/rocket-sass-framework#readme"
+}

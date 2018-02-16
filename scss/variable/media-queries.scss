@@ -1,0 +1,83 @@
+// Default Screen sizes, following Chrome devtools specification
+
+$screen-phone           : 425px !default;
+$screen-phone-m         : 375px !default;
+$screen-phone-s         : 320px !default;
+$screen-tablet          : 768px !default;
+$screen-small           : 1024px !default;
+$screen-medium          : 1280px !default;
+$screen-large           : 1680px !default;
+$screen-4k              : 2560px !default;
+
+// Standard Media query shorthand
+
+// From [value] to infinity
+$from-4k               : "screen and (min-width: "+($screen-4k + 1px)+")";
+$from-large            : "screen and (min-width: "+($screen-large + 1px)+")";
+$from-medium           : "screen and (min-width: "+($screen-medium + 1px)+")";
+$from-small            : "screen and (min-width: "+($screen-small + 1px)+")";
+$from-tablet           : "screen and (min-width: "+($screen-tablet + 1px)+")";
+$from-phone            : "screen and (min-width: "+($screen-phone + 1px)+")";
+$from-phone-m          : "screen and (min-width: "+($screen-phone-m + 1px)+")";
+$from-phone-s          : "screen and (min-width: "+($screen-phone-s + 1px)+")";
+
+// From 0 to [value]
+$to-4k                 : "screen and (max-width: "+$screen-4k+")";
+$to-large              : "screen and (max-width: "+$screen-large+")";
+$to-medium             : "screen and (max-width: "+$screen-medium+")";
+$to-small              : "screen and (max-width: "+$screen-small+")";
+$to-tablet             : "screen and (max-width: "+$screen-tablet+")";
+$to-phone              : "screen and (max-width: "+$screen-phone+")";
+$to-phone-m            : "screen and (max-width: "+$screen-phone-m+")";
+$to-phone-s            : "screen and (max-width: "+$screen-phone-s+")";
+
+// [value] only
+$only-4k               : $from-4k;
+$only-large            : "screen and (min-width: "+$screen-large+") and (max-width: "+($screen-4k - 1px)+")";
+$only-medium           : "screen and (min-width: "+$screen-medium+") and (max-width: "+($screen-large - 1px)+")";
+$only-small            : "screen and (min-width: "+$screen-small+") and (max-width: "+($screen-medium - 1px)+")";
+$only-tablet           : "screen and (min-width: "+$screen-tablet+") and (max-width: "+($screen-small - 1px)+")";
+$only-phone            : "screen and (min-width: "+$screen-phone+") and (max-width: "+($screen-tablet - 1px)+")";
+$only-phone-m          : "screen and (min-width: "+$screen-phone-m+") and (max-width: "+($screen-phone - 1px)+")";
+$only-phone-s          : $to-phone-s;
+
+// Specific
+$phone-portrait   : "screen and (max-width: "+$screen-phone+") and (orientation: portrait)";
+$phone-landscape  : "screen and (max-width: "+$screen-phone+") and (orientation: landscape)";
+$retina           : "(-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi)";
+
+
+// Media query list to be used in other libraries
+$media-queries-to   : ( 4k: $to-4k, large: $to-large, medium: $to-medium, small: $to-small, tablet: $to-tablet, phone: $to-phone, phone-m: $to-phone-m, phone-s: $to-phone-s);
+$media-queries-from : ( 4k: $from-4k, large: $from-large, medium: $from-medium, small: $from-small, tablet: $from-tablet, phone: $from-phone, phone-m: $from-phone-m, phone-s: $from-phone-s);
+
+
+// Dummy queries for mqpaker, define media query order in generated css
+
+@media #{$from-4k} {         .dummy{ display: block } }
+@media #{$to-4k} {           .dummy{ display: block } }
+@media #{$only-4k} {         .dummy{ display: block } }
+@media #{$from-large} {      .dummy{ display: block } }
+@media #{$to-large} {        .dummy{ display: block } }
+@media #{$only-large} {      .dummy{ display: block } }
+@media #{$from-medium} {     .dummy{ display: block } }
+@media #{$to-medium} {       .dummy{ display: block } }
+@media #{$only-medium} {     .dummy{ display: block } }
+@media #{$from-small} {      .dummy{ display: block } }
+@media #{$to-small} {        .dummy{ display: block } }
+@media #{$only-small} {      .dummy{ display: block } }
+@media #{$from-tablet} {     .dummy{ display: block } }
+@media #{$to-tablet} {       .dummy{ display: block } }
+@media #{$only-tablet} {     .dummy{ display: block } }
+@media #{$from-phone} {      .dummy{ display: block } }
+@media #{$to-phone} {        .dummy{ display: block } }
+@media #{$only-phone} {      .dummy{ display: block } }
+@media #{$from-phone-m} {    .dummy{ display: block } }
+@media #{$to-phone-m} {      .dummy{ display: block } }
+@media #{$only-phone-m} {    .dummy{ display: block } }
+@media #{$from-phone-s} {    .dummy{ display: block } }
+@media #{$to-phone-s} {      .dummy{ display: block } }
+@media #{$only-phone-s} {    .dummy{ display: block } }
+@media #{$phone-landscape} { .dummy{ display: block } }
+@media #{$phone-portrait} {  .dummy{ display: block } }
+@media #{$retina} {          .dummy{ display: block } }

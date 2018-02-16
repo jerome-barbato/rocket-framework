@@ -1,0 +1,38 @@
+// Custom scrollbar colors
+@mixin scrollbar($size, $primary, $secondary: lighten($primary, 25%), $radius-thumb: 0, $radius-track: 0) {
+  &::-webkit-scrollbar { width:  $size; height: $size }
+  &::-webkit-scrollbar-thumb { background: $primary; border-radius: $radius-thumb }
+  &::-webkit-scrollbar-track { background: $secondary; border-radius: $radius-track }
+}
+
+
+// Clear float
+@mixin clearfix() {
+  &:after{
+    content: '\0020'; display: block; overflow: hidden;
+    visibility: hidden; width: 0; height: 0; clear: both;
+  }
+}
+
+.clearfix{ @include clearfix() }
+
+
+// Custom placeholder style
+@mixin placeholder {
+  &::-webkit-input-placeholder {@content}
+  &:-moz-placeholder           {@content}
+  &::-moz-placeholder          {@content}
+  &:-ms-input-placeholder      {@content}
+}
+
+
+// Text
+@mixin text($type) {
+  @extend %text--#{$type}, %text !optional;
+}
+
+
+// Button
+@mixin button($type) {
+  @extend %button--#{$type}, %button !optional;
+}

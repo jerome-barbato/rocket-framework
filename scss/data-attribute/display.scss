@@ -1,0 +1,21 @@
+@mixin data-display{
+
+  @each $id, $media-query in $media-queries-from
+  {
+    @media #{$media-query} { [data-show_on="#{$id}"]{ display: none!important }}
+  }
+
+  @each $id, $media-query in $media-queries-to
+  {
+    @media #{$media-query} { [data-hide_on="#{$id}"]{ display: none!important }}
+  }
+
+  .mobile [data-hide_on="mobile"], .desktop [data-hide_on="desktop"],
+  .desktop [data-show_on="mobile"], .mobile [data-show_on="desktop"],
+  .mobile [hide-on="mobile"], .desktop [hide-on="desktop"],
+  .desktop [show-on="mobile"], .mobile [show-on="desktop"]{ display: none!important }
+}
+
+@if (variable-exists(data-attributes) and index($data-attributes, 'display')) {
+  @include data-display;
+}
