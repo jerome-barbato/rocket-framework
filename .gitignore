@@ -1,2 +1,7 @@
-.sass-cache/
-*.css.map
+.tmp
+.idea
+.DS_Store
+node_modules
+bower_components
+coverage
+package-lock.json

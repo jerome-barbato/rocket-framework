@@ -1,5 +1,20 @@
 # Rocket sass framework
 
+## How to use
+
+In your main sass file, import the framework, order is important.
+Use [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-importer)
+
+    /* Framework */
+    @import "node_modules/rocket-sass-framework/scss/reset";
+    @import "node_modules/rocket-sass-framework/scss/function/**/*.scss";
+    @import "node_modules/rocket-sass-framework/scss/variable/**/*.scss";
+    @import "node_modules/rocket-sass-framework/scss/mixin/**/*.scss";
+    @import "node_modules/rocket-sass-framework/scss/class/**/*.scss";
+    @import "node_modules/rocket-sass-framework/scss/data-attribute/**/*.scss";
+    
+## Features
+
 ### Media queries
 
  Following Chrome devtools specification, there is several size predefined :
