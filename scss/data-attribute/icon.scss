@@ -4,7 +4,7 @@ $icons: false !default;
 
   %icon{
     font-family: icons, sans-serif; text-transform: none; line-height: 1;
-    font-style: normal; font-weight: normal; font-variant: normal;
+    font-style: normal; font-weight: normal; font-variant: normal; vertical-align: middle;
     -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
   }
 
