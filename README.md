@@ -1,4 +1,4 @@
-# Rocket sass framework
+# Scss/VueJS libraries
 
 ## How to use
 

@@ -1,7 +1,7 @@
 {
-  "name": "rocket-framework",
+  "name": "@metabolism/framework",
   "version": "1.1.0",
-  "description": "Reset and framework",
+  "description": "Scss/VueJS libraries",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wearemetabolism/rocket-framework.git"
@@ -21,8 +21,10 @@
   "bugs": {
     "url": "https://github.com/wearemetabolism/rocket-framework/issues"
   },
+  "main": "./index.js",
   "files": [
-    "vuejs/on-scroll"
+    "vuejs/on-scroll",
+    "scss"
   ],
   "homepage": "https://github.com/wearemetabolism/rocket-framework#readme",
   "devDependencies": {
