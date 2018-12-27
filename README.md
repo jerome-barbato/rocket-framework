@@ -7,15 +7,15 @@ In your main sass file, import the framework, order is important.
 Use [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-importer) to allow `**/*` notation
 
     /* CSS Framework */
-    @import "node_modules/rocket-sass-framework/scss/reset";
-    @import "node_modules/rocket-sass-framework/scss/function/**/*.scss";
-    @import "node_modules/rocket-sass-framework/scss/variable/**/*.scss";
-    @import "node_modules/rocket-sass-framework/scss/mixin/**/*.scss";
-    @import "node_modules/rocket-sass-framework/scss/class/**/*.scss";
-    @import "node_modules/rocket-sass-framework/scss/data-attribute/**/*.scss";
+    @import "node_modules/@metabolism/framework/scss/reset";
+    @import "node_modules/@metabolism/framework/scss/function/**/*.scss";
+    @import "node_modules/@metabolism/framework/scss/variable/**/*.scss";
+    @import "node_modules/@metabolism/framework/scss/mixin/**/*.scss";
+    @import "node_modules/@metabolism/framework/scss/class/**/*.scss";
+    @import "node_modules/@metabolism/framework/scss/data-attribute/**/*.scss";
     
     /* VUEJS Specific */
-    @import "node_modules/rocket-sass-framework/scss/vuejs/**/*.scss";
+    @import "node_modules/@metabolism/framework/scss/vuejs/**/*.scss";
     
 ## Features
 
