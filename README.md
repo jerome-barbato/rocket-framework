@@ -3,15 +3,19 @@
 ## How to use
 
 In your main sass file, import the framework, order is important.
-Use [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-importer)
 
-    /* Framework */
+Use [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-importer) to allow `**/*` notation
+
+    /* CSS Framework */
     @import "node_modules/rocket-sass-framework/scss/reset";
     @import "node_modules/rocket-sass-framework/scss/function/**/*.scss";
     @import "node_modules/rocket-sass-framework/scss/variable/**/*.scss";
     @import "node_modules/rocket-sass-framework/scss/mixin/**/*.scss";
     @import "node_modules/rocket-sass-framework/scss/class/**/*.scss";
     @import "node_modules/rocket-sass-framework/scss/data-attribute/**/*.scss";
+    
+    /* VUEJS Specific */
+    @import "node_modules/rocket-sass-framework/scss/vuejs/**/*.scss";
     
 ## Features
 
@@ -24,8 +28,7 @@ Use [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-impor
     phone-s  : 320px
     tablet   : 768px
     small    : 1024px
-    medium   : 1280px
-    large    : 1680px
+    large    : 1440px
     4k       : 2560px
 
 #### From
@@ -34,7 +37,7 @@ Use [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-impor
 
  compile to
 
-    @media screen and (min-width: 426px){ }
+    @media screen and (min-width: 425px){ }
 
 #### To
 
@@ -42,7 +45,7 @@ Use [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-impor
 
  compile to
 
-    @media screen and (max-width: 425px){ }
+    @media screen and (max-width: 767px){ }
 
 #### Only
 
@@ -65,24 +68,64 @@ Use [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-impor
 
  Also works with js defined `<html>` class, mobile/desktop based on user agent
 
-    <div hide-on="phone">
+    <div data-hide_on="phone">
         I'm on a tablet or desktop
     </div>
-    <div show-on="phone">
+    <div data-show_on="phone">
         I'm on a phone
     </div>
+    
+### Animate on scroll
+
+ Import VueJS specific scss
+
+    @import "node_modules/rocket-framework/vuejs/**/*.scss";
+
+ Import lib
+
+    import onScroll from 'rocket-framework/vuejs/on-scroll';
+    Vue.component(onScroll.name, onScroll);
+    
+ Add markup
+   
+    <on-scroll animation="slide-up">Title</on-scroll>
+    <!-- disable on mobile -->
+    <on-scroll animation="slide-up" mobile="disabled">Title</on-scroll>
+    <!-- Generate markup using a span -->
+    <on-scroll animation="slide-up" tag="span">Title</on-scroll>
+    <!-- Change delay and duration -->
+    <on-scroll animation="parallax" delay="100" duration="500">Title</on-scroll>
+    
+ Available animation : 
+  - increment
+  - slide-up
+  - slide-down
+  - slide-righ
+  - slide-left
+  - zoom-in
+  - mask-right
+  - parallax
+  
+ Parallax : 
+ 
+    <!-- Parallax 200px -->
+    <on-scroll animation="parallax" offset="200">Title</on-scroll>
+   
+    <!-- Parallax 10% from center, inverted offset -->
+    <on-scroll animation="parallax" invert="true" center="true" offset="10%">Title</on-scroll>
+
 
 ### Aspect ratio
 
  Define size in css
  
     <div class="Product">
-      <img src="product.jpg" object-fit="cover">
+      <img src="product.jpg"/>
     </div>
 
     .Product{
       @include aspect-ratio(1/2);
-      img{ position:overlay }
+      img{ position:overlay(); object-fit:cover }
     }
 
 ### Background size
@@ -118,8 +161,8 @@ Add preconfigured settings
 
  Add an icon directly from the html
 
-    <a icon="facebook"></a>
-    <a icon-after="facebook"></a>
+    <a data-icon="facebook"></a>
+    <a data-icon-after="facebook"></a>
 
 or in the scss file
 

@@ -1,6 +1,6 @@
 {
   "name": "rocket-framework",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Reset and framework",
   "repository": {
     "type": "git",
@@ -11,7 +11,8 @@
     "reset",
     "framework",
     "css",
-    "scss"
+    "scss",
+    "vuejs"
   ],
   "author": {
     "name": "Metabolism"
@@ -20,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/wearemetabolism/rocket-framework/issues"
   },
-  "homepage": "https://github.com/wearemetabolism/rocket-framework#readme"
+  "files": [
+    "vuejs/on-scroll"
+  ],
+  "homepage": "https://github.com/wearemetabolism/rocket-framework#readme",
+  "devDependencies": {
+    "@tweenjs/tween.js": "^17.2.0"
+  }
 }

@@ -1,6 +1,8 @@
 // Unsupported Browsers
 
-$unsupported-browsers: ie7, ie8, ie9, safari4!default;
+$unsupported-browsers: ie7, ie8, ie9, ie10, safari4, safari5, safari6, safari7, safari8, safari9, safari10!default;
+$unsupported-text-en: 'Your browser is too old and not supported anymore.'!default;
+$unsupported-text-fr: 'Votre navigateur web n\'est pas supporté par ce site, veuillez le mettre à jour.'!default;
 
 @if $unsupported-browsers{
 
@@ -11,8 +13,9 @@ $unsupported-browsers: ie7, ie8, ie9, safari4!default;
       > *, &:before{ display: none!important; visibility: hidden!important }
       &:after{
         position: absolute; left: 0; width: 100%; top: 50%; margin-top: -0.5em;
-        content:'Your browser is too old and not supported anymore.';
+        content:$unsupported-text-en;
         font-family: Arial, sans-serif; text-align: center; font-size: 12px;
+        [lang="fr"] &{ content: $unsupported-text-fr }
       }
     }
   }

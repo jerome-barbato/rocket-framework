@@ -1,0 +1,116 @@
+$grid-space: 0 !default;
+$grid-margin : 0 $grid-space !default;
+$grid-col-padding : 0 $grid-space/2 !default;
+$grid-row-margin : $grid-space*2 !default;
+$grid-row-padding: false !default;
+
+//$grid-breakpoints : desktop, wide, 13inch, tablet, tablet-portrait, mobile;
+$grid-breakpoints : false !default;
+$grid-flex : false !default;
+$grid-table : true !default;
+$grid-col-count : 12 !default;
+
+@mixin data-grid {
+
+	[data-row] {
+		display: flex; flex-direction: row; flex-wrap: wrap; width: 100%;
+		@if ($grid-row-padding) { padding: $grid-row-padding }
+		@if ($grid-row-margin) { & + & { margin-top: $grid-row-margin } }
+	}
+	[data-row="right"]{ justify-content: flex-end }
+	[data-row="center"]{ justify-content: center }
+	[data-row="center middle"]{ align-items: center; justify-content: center; height: 100% }
+	[data-row="right middle"]{ align-items: center; justify-content: flex-end; height: 100% }
+	[data-row="space-between"]{ justify-content: space-between }
+	[data-row="space-evenly"]{ justify-content: space-evenly }
+	[data-row="space-around"]{ justify-content: space-around }
+	[data-row="space-evenly middle"]{ align-items: center; justify-content: space-evenly; height: 100% }
+	[data-row="space-between middle"]{ align-items: center; justify-content: space-between; height: 100% }
+	[data-row="space-between bottom"]{ align-items: flex-end; justify-content: space-between; height: 100% }
+	[data-row="top"]{ align-items: flex-start }
+	[data-row="middle"]{ align-items: center; height: 100% }
+	[data-row="bottom"]{ align-items: flex-end; height: 100% }
+	[data-row="reverse"]{ flex-direction: row-reverse }
+	[data-row="reverse middle"]{ flex-direction: row-reverse; align-items: center; height: 100% }
+
+	@media #{$from-tablet} {
+		[data-row="nowrap"]{
+			flex-wrap: nowrap;
+
+			[data-col]{ flex: 1 }
+		}
+	}
+
+
+	[data-col]{
+		flex: 0 1 auto; align-self: auto; position: relative;
+		@if ($grid-col-padding) { padding: $grid-col-padding }
+	}
+
+	@each $count in $grid-col-count{
+		@for $i from 1 through $count{
+			[data-col="#{$i}/#{$count}"] {
+				flex-basis: (100%/($count/$i));
+				.internet.explorer &{ max-width: (100%/($count/$i)) }
+			}
+			[data-col-offset="#{$i}/#{$count}"] { margin-left: (100%/($count/$i)) }
+		}
+	}
+
+	[data-col="1/2"] {
+		flex-basis: 50%;
+		.internet.explorer &{ max-width: 50% }
+	}
+
+	[data-col="1/3"] {
+		flex-basis: (100%/3);
+		.internet.explorer &{ max-width: (100%/3) }
+	}
+	[data-col="1/4"] { flex-basis: (100%/4);
+		.internet.explorer &{ max-width: (100%/4) }
+	}
+	[data-col="2/3"] { flex-basis: 2*(100%/3);
+		.internet.explorer &{ max-width: 2*(100%/3) }
+	}
+	[data-col="3/4"] { flex-basis: 3*(100%/4);
+		.internet.explorer &{ max-width: 3*(100%/4) }
+	}
+
+	[data-col]{
+		@media #{$to-tablet} {
+			flex-basis: 100%;
+		}
+	}
+
+	@media #{$only-tablet} {
+		[data-tab-col] {
+			flex: 0 1 auto; align-self: auto; position: relative;
+			@if ($grid-col-padding) {
+				padding: $grid-col-padding
+			}
+		}
+
+		[data-tab-row]{ flex-wrap: wrap }
+
+		[data-tab-row="space-around"]{ justify-content: space-around }
+		[data-tab-row="space-between"]{ justify-content: space-between }
+
+		@each $count in $grid-col-count{
+			@for $i from 1 through $count{
+				[data-tab-col="#{$i}/#{$count}"] { flex-basis: (100%/($count/$i)) }
+				[data-tab-col-offset="#{$i}/#{$count}"] { margin-left: (100%/($count/$i)) }
+			}
+		}
+
+		[data-tab-col="1/2"] { flex-basis: 50% }
+		[data-tab-col="1/3"] { flex-basis: (100%/3) }
+		[data-tab-col="1/4"] { flex-basis: (100%/4) }
+		[data-tab-col="2/3"] { flex-basis: 2*(100%/3) }
+		[data-tab-col="3/4"] { flex-basis: 3*(100%/4) }
+	}
+}
+
+
+@if (variable-exists(data-attributes) and index($data-attributes, 'grid')) {
+	@include data-grid;
+}
