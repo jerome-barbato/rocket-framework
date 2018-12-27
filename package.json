@@ -1,6 +1,6 @@
 {
   "name": "@metabolism/framework",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Scss/VueJS libraries",
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
   },
   "main": "./index.js",
   "files": [
-    "vuejs/on-scroll",
+    "vuejs",
     "scss"
   ],
   "homepage": "https://github.com/wearemetabolism/rocket-framework#readme",

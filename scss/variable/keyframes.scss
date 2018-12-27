@@ -5,23 +5,11 @@
   $animation-offset: 50% !default;
 
   @keyframes fade-in { 0%{ opacity: 0 } 100%{ opacity: 1 } }
-  @keyframes fade-in-half { 0%{ opacity: 0 } 50%, 100%{ opacity: 1 } }
-  @keyframes un-fade-in { 100%{ opacity: 0 } 0%{ opacity: 1 } }
-
   @keyframes fade-out { 0%{ opacity: 1 } 100%{ opacity: 0 } }
-  @keyframes fade-out-half { 0%{ opacity: 1 } 50%, 100%{ opacity: 0 } }
-
   @keyframes slide-down { 0%{ opacity: 0; transform: translateY(-$animation-offset-rem) } 100%{ opacity: 1; transform: none }}
-  @keyframes un-slide-down { 100%{ opacity: 0; transform: translateY(-$animation-offset-rem) } 0%{ opacity: 1; transform: none }}
-
   @keyframes slide-up { 0%{ opacity: 0; transform: translateY($animation-offset-rem) } 100%{ opacity: 1; transform: none }}
-  @keyframes un-slide-up { 100%{ opacity: 0; transform: translateY($animation-offset-rem) } 0%{ opacity: 1; transform: none }}
-
   @keyframes slide-right { 0%{ opacity: 0; transform: translateX(-$animation-offset-rem) } 100%{ opacity: 1; transform: none }}
-  @keyframes un-slide-right { 100%{ opacity: 0; transform: translateX(-$animation-offset-rem) } 0%{ opacity: 1; transform: none }}
-
   @keyframes slide-left { 0%{ opacity: 0; transform: translateX($animation-offset-rem) } 100%{ opacity: 1; transform: none }}
-  @keyframes un-slide-left { 100%{ opacity: 0; transform: translateX($animation-offset-rem) } 0%{ opacity: 1; transform: none }}
 
   @keyframes slide-from-top { 0%{ opacity: 0; transform: translateY(-$animation-offset) } 100%{ opacity: 1; transform: none }}
   @keyframes slide-from-bottom { 0%{ opacity: 0; transform: translateY($animation-offset) } 100%{ opacity: 1; transform: none }}
@@ -37,31 +25,14 @@
   @keyframes slide-to-right-only { 100%{ transform: translateX(100%) } 0%{ transform: none }}
 
   @keyframes zoom-in { 0%{ opacity: 0; transform: scale(0.8) } 100%{ opacity: 1; transform: none }}
-  @keyframes un-zoom-in { 100%{ opacity: 0; transform: scale(0.8) } 0%{ opacity: 1; transform: none }}
-
   @keyframes scale { 0%{ transform: scale(0) } 100%{ transform: none }}
-  @keyframes un-scale { 100%{ transform: scale(0) } 0%{ transform: none }}
-
   @keyframes zoom-out { 0%{ opacity: 1; transform: none } 100%{ opacity: 0; transform: scale(0.8) }}
-  @keyframes un-zoom-out { 100%{ opacity: 1; transform: none } 100%{ opacity: 0; transform: scale(0.8) }}
-
   @keyframes unzoom-in { 0%{ opacity: 0; transform: scale(1.2) } 100%{ opacity: 1; transform: none }}
-  @keyframes un-unzoom-in { 100%{ opacity: 0; transform: scale(1.2) } 0%{ opacity: 1; transform: none }}
-
   @keyframes unzoom-out { 0%{ opacity: 1; transform: none } 100%{ opacity: 0; transform: scale(1.2) }}
-  @keyframes un-unzoom-out { 100%{ opacity: 1; transform: none } 0%{ opacity: 0; transform: scale(1.2) }}
-
   @keyframes rotate-x { 0%{ opacity: 0; transform: perspective(400px) rotateX(-90deg) } 100%{ opacity: 1; transform: perspective(400px) }}
-  @keyframes un-rotate-x { 100%{ opacity: 0; transform: perspective(400px) rotateX(-90deg) } 0%{ opacity: 1; transform: perspective(400px) }}
-
   @keyframes rotate-y { 0%{ opacity: 0; transform: perspective(400px) rotateY(90deg) } 100%{ opacity: 1; transform: perspective(400px) }}
-  @keyframes un-rotate-y { 100%{ opacity: 0; transform: perspective(400px) rotateY(90deg) } 0%{ opacity: 1; transform: perspective(400px) }}
-
   @keyframes pop { 0%{ opacity: 0; transform: scale(0,0) } 40%{ opacity: 1 } 60%{ transform: scale(0.9, 1.02) } 80%{ transform: scale(1.02, 0.98) } 100%{ transform: none }}
-  @keyframes un-pop { 100%{ opacity: 0; transform: scale(0,0) } 80%{ opacity: 1 } 60%{ transform: scale(0.9, 1.02) } 40%{ transform: scale(1.02, 0.98) } 0%{ transform: none }}
-
   @keyframes enlarge { 0%{ width: 0 } 100%{ width: 100% } }
-  @keyframes un-enlarge { 0%{ width: 100% } 100%{ width: 0 } }
 
   @keyframes appear {
     0%{ transform:scaleX(0); transform-origin: left } 50%{ transform: scaleX(1); transform-origin: left }

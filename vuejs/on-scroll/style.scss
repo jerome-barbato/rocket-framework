@@ -3,27 +3,16 @@ on-scroll{ visibility: hidden }
 $aos-offset-rem: 8rem!default;
 $aos-duration: 0.5s!default;
 $aos-easing: $ease-in-out-cubic!default;
+$aos-animations-list: $animations!default;
 
 .on-scroll{
-	animation-fill-mode: both; animation-duration: $aos-duration; animation-timing-function: $aos-easing;
-	will-change: opacity, transform; backface-visibility: hidden;
-	&-wait{ visibility: hidden }
-	&-fade, &-increment{ animation-name: aos-fade-in }
-	&-slide-up{ animation-name: aos-slide-up }
-	&-slide-down{ animation-name: aos-slide-down }
-	&-slide-left{ animation-name: aos-slide-left }
-	&-slide-right{ animation-name: aos-slide-right }
-	&-zoom-in{ animation-name: zoom-in }
-	&-parallax{ animation: none }
-	&-mask-right{
-		position: relative;
-		&:after{ position: absolute; content: ''; left: 0; top: 0; right: 0; bottom: 0; z-index: 1; background: white; animation-name: aos-mask-right;  }
+	animation-fill-mode: both; animation-duration: $aos-duration; animation-timing-function: $aos-easing; backface-visibility: hidden;
+	&--wait{ visibility: hidden }
+	@each $animation in $aos-animations-list{
+		$name       : nth($animation, 1);
+		$properties : nth($animation, 2);
+		&--#{$name}{ animation-name: $name; will-change: $properties }
 	}
+	&--increment{ animation-name: fade-in; will-change: opacity }
+	&--parallax{ animation: none; will-change: transform }
 }
-
-@keyframes aos-slide-up { 0%{ opacity: 0; transform: translateY($aos-offset-rem) } 100%{ opacity: 1; transform: none }}
-@keyframes aos-slide-down { 0%{ opacity: 0; transform: translateY(-$aos-offset-rem) } 100%{ opacity: 1; transform: none }}
-@keyframes aos-slide-right { 0%{ opacity: 0; transform: translateX(-$aos-offset-rem) } 100%{ opacity: 1; transform: none }}
-@keyframes aos-slide-left { 0%{ opacity: 0; transform: translateX($aos-offset-rem) } 100%{ opacity: 1; transform: none }}
-@keyframes aos-zoom-in { 0% { opacity: 0; transform: scale(0.8) } 100% { opacity: 1; transform: none }}
-@keyframes aos-mask-right { 0% { transform: none } 100% { transform: translateX(100%) } }

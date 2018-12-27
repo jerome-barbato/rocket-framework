@@ -1,7 +1,5 @@
 # Scss/VueJS libraries
 
-## How to use
-
 In your main sass file, import the framework, order is important.
 
 Use [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-importer) to allow `**/*` notation

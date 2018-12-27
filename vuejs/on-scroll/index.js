@@ -55,17 +55,20 @@ export default {
         animation: { default: 'fade' },
         delay: { default: 0 },
         offset: { default: 100 },
-        duration: { default: '0.5' },
+        strength: { default: 100 },
+        duration: { default: 0.5 },
         tag: { default: 'div' },
         invert: { default: false },
         center: { default: false },
+        loop: { default: false },
         mobile: { default: 'active' }
     },
     data(){
         return{
             bounding: {},
             interval: false,
-            current: false
+            current: false,
+            shown: false
         }
     },
     methods : {
@@ -99,33 +102,36 @@ export default {
             if( this.duration )
                 this.$el.style[aosPrefixAnimation.fn+'Duration'] = '';
 
-            this.$el.classList.remove('on-scroll-'+this.animation);
+            this.$el.classList.remove('on-scroll--'+this.animation);
             this.$el.classList.remove('on-scroll');
         },
-        parallax(){
+        parallax(pos){
 
             let offset = 0;
 
-            if (window.pageYOffset + window.innerHeight > this.bounding.top && this.bounding.bottom > window.pageYOffset) {
+            if (pos > this.bounding.top && this.bounding.bottom > window.pageYOffset) {
 
                 if (this.bounding.top < window.innerHeight) {
                     offset = window.pageYOffset / this.bounding.bottom;
                 } else {
-                    offset = (window.pageYOffset + window.innerHeight - this.bounding.top) / (this.bounding.bottom + window.innerHeight - this.bounding.top);
+                    offset = (pos - this.bounding.top) / (this.bounding.bottom + window.innerHeight - this.bounding.top);
                 }
             }
             else {
 
-                offset = window.pageYOffset + window.innerHeight > this.bounding.top ? 1 : 0;
+                offset = pos > this.bounding.top ? 1 : 0;
             }
 
+            offset = Math.max(0, Math.min(1, offset));
             offset = this.invert ? 1 - offset : offset;
             offset = this.center ? offset - 0.5 : offset;
 
             if( this.current !== offset)
             {
                 this.current = offset;
-                this.$el.style.transform = 'translateY('+(Math.round(offset*this.offset*10)/10)+'px)';
+                let strength = String(this.strength).indexOf('%') !==-1 ? Math.round(offset*parseInt(this.strength.replace('%',''))*100)/100+'%' : Math.round(offset*parseInt(this.strength)*10)/10+'px';
+                this.$el.style.transform = 'translateY('+strength+')';
+                this.$el.style.WebkitTransform = 'translateY('+strength+')';
             }
         },
         tween: function (startValue, endValue) {
@@ -139,7 +145,7 @@ export default {
 
             let is_int = parseInt(endValue) === endValue;
             let unit_decimal = document.documentElement.lang==='fr'?',':'.';
-            let unit_thousand = document.documentElement.lang==='fr'?'':'';
+            let unit_thousand = document.documentElement.lang==='fr'?' ':',';
 
             function animate () {
                 if (TWEEN.update())
@@ -174,47 +180,52 @@ export default {
             let pos = 0;
 
             if( typeof this.offset === 'string')
-                pos = this.offset.indexOf('%') !==-1 ? window.pageYOffset + window.innerHeight*parseInt(this.offset)/100 : window.pageYOffset + window.innerHeight;
+                pos = String(this.offset).indexOf('%') !==-1 ? window.pageYOffset + window.innerHeight*parseInt(this.offset.replace('%',''))/100 : window.pageYOffset + window.innerHeight;
             else if( this.animation === 'parallax')
                 pos = window.pageYOffset + window.innerHeight;
             else
                 pos = window.pageYOffset + window.innerHeight - this.offset;
 
-            if ( this.bounding.top < pos ) {
+            if ( (this.bounding.top <= pos && !this.shown) || this.animation === 'parallax') {
 
-                if( this.animation === 'increment')
-                {
-                    this.ignore();
-
+                if( this.animation === 'increment') {
                     let vm = this;
-                    let delay = this.delay<10?this.delay*1000:this.delay;
+                    let delay = parseFloat(this.delay)<10?parseFloat(this.delay)*1000:this.delay;
                     setTimeout(function(){ vm.tween(0, vm.$el.textContent) }, delay);
                 }
-                else if( this.animation === 'parallax')
-                {
-                    this.parallax();
+                else if( this.animation === 'parallax') {
+                    this.parallax(pos);
                 }
-                else
-                {
-                    this.ignore();
+                else {
 
-                    if( this.delay )
-                        this.$el.style[aosPrefixAnimation.fn+'Delay'] = this.delay+(this.delay<10?'s':'ms');
+                    if (this.delay)
+                        this.$el.style[aosPrefixAnimation.fn + 'Delay'] = parseFloat(this.delay) + (parseFloat(this.delay) < 10 ? 's' : 'ms');
 
-                    if( this.duration )
-                        this.$el.style[aosPrefixAnimation.fn+'Duration'] = this.duration+(this.duration<10?'s':'ms');
+                    if (this.duration)
+                        this.$el.style[aosPrefixAnimation.fn + 'Duration'] = parseFloat(this.duration) + (parseFloat(this.duration) < 10 ? 's' : 'ms');
 
                     this.$el.addEventListener(aosPrefixAnimation.end, this.end, false);
                 }
 
-                this.$el.classList.remove('on-scroll-wait');
-                this.$el.classList.add('on-scroll-'+this.animation);
+                if( !this.shown ){
+                    this.$el.classList.remove('on-scroll--wait');
+                    this.$el.classList.add('on-scroll--'+this.animation);
+
+                    this.shown = true;
+                }
+            }
+
+            if( this.bounding.top > window.pageYOffset + window.innerHeight && this.shown && this.animation !== 'parallax'){
+                this.$el.classList.add('on-scroll--wait');
+                this.$el.classList.remove('on-scroll--'+this.animation);
+
+                this.shown = false;
             }
         }
     },
     mounted() {
 	      if( this.mobile !== "disabled" || window.innerWidth > 640  ) {
-		      this.$el.classList.add('on-scroll-wait');
+		      this.$el.classList.add('on-scroll--wait');
 		      this.listen();
 		      this.update();
 		      this.scroll();
