@@ -24,12 +24,12 @@ const aosPrefixAnimation = (function(){
         };
     }
     const prefixes = ['webkit', 'Moz', 'O', ''];
-    let style = document.documentElement.style;
+    var style = document.documentElement.style;
 
     if(style.animationName !== undefined)
         return lowerCaseEventTypes();
 
-    for(let i = 0, len = prefixes.length, prefix; i < len; i++) {
+    for(var i = 0, len = prefixes.length, prefix; i < len; i++) {
         prefix = prefixes[i];
 
         if(style[prefix + 'AnimationName'] !== undefined) {
@@ -48,7 +48,7 @@ const aosPrefixAnimation = (function(){
 
 export default {
     name :'on-scroll',
-    render(h) {
+    render: function(h) {
         return h(this.tag, {class:'on-scroll'}, this.$slots.default);
     },
     props:{
@@ -63,7 +63,7 @@ export default {
         loop: { default: false },
         mobile: { default: 'active' }
     },
-    data(){
+    data: function(){
         return{
             bounding: {},
             interval: false,
@@ -72,29 +72,29 @@ export default {
         }
     },
     methods : {
-        update(){
-            let rect = this.$el.getBoundingClientRect(),
+        update: function(){
+            var rect = this.$el.getBoundingClientRect(),
                 scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
                 scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
             this.bounding = { top: rect.top + scrollTop, left: rect.left + scrollLeft, height: rect.height, width: rect.width, bottom: rect.bottom + scrollTop}
         },
-        listen(){
+        listen: function(){
             document.addEventListener('resize', this.update);
             document.addEventListener('scroll', this.scroll);
 
-            let vm = this;
+            var vm = this;
             this.interval = setInterval(function(){
                 vm.update();
                 vm.scroll();
             }, 1000);
         },
-        ignore(){
+        ignore: function(){
             clearInterval(this.interval);
             document.removeEventListener('scroll', this.scroll);
             document.removeEventListener('resize', this.update);
         },
-        end(){
+        end: function(){
 
             if( this.delay )
                 this.$el.style[aosPrefixAnimation.fn+'Delay'] = '';
@@ -105,9 +105,9 @@ export default {
             this.$el.classList.remove('on-scroll--'+this.animation);
             this.$el.classList.remove('on-scroll');
         },
-        parallax(pos){
+        parallax: function(pos){
 
-            let offset = 0;
+            var offset = 0;
 
             if (pos > this.bounding.top && this.bounding.bottom > window.pageYOffset) {
 
@@ -129,23 +129,23 @@ export default {
             if( this.current !== offset)
             {
                 this.current = offset;
-                let strength = String(this.strength).indexOf('%') !==-1 ? Math.round(offset*parseInt(this.strength.replace('%',''))*100)/100+'%' : Math.round(offset*parseInt(this.strength)*10)/10+'px';
+                var strength = String(this.strength).indexOf('%') !==-1 ? Math.round(offset*parseInt(this.strength.replace('%',''))*100)/100+'%' : Math.round(offset*parseInt(this.strength)*10)/10+'px';
                 this.$el.style.transform = 'translateY('+strength+')';
                 this.$el.style.WebkitTransform = 'translateY('+strength+')';
             }
         },
         tween: function (startValue, endValue) {
 
-            let vm = this;
+            var vm = this;
 
             if( document.documentElement.lang === 'fr' )
                 endValue = parseFloat( endValue.replace(' ', '').replace(/,/, '.') );
             else
                 endValue = parseFloat( endValue.replace(' ', '').replace(/,/g, '') );
 
-            let is_int = parseInt(endValue) === endValue;
-            let unit_decimal = document.documentElement.lang==='fr'?',':'.';
-            let unit_thousand = document.documentElement.lang==='fr'?' ':',';
+            var is_int = parseInt(endValue) === endValue;
+            var unit_decimal = document.documentElement.lang==='fr'?',':'.';
+            var unit_thousand = document.documentElement.lang==='fr'?' ':',';
 
             function animate () {
                 if (TWEEN.update())
@@ -154,8 +154,8 @@ export default {
 
              function format(value) {
                  value = is_int ? Math.round(value) : (Math.round(value*1000)/1000);
-                 let n = is_int ? 0 :1;
-                 let re = '\\d(?=(\\d{' + (3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+                 var n = is_int ? 0 :1;
+                 var re = '\\d(?=(\\d{' + (3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
                  value = value.toString().replace(new RegExp(re, 'g'), '$& ');
 
                  if( is_int )
@@ -175,9 +175,9 @@ export default {
 
             animate();
         },
-        scroll(){
+        scroll: function(){
             
-            let pos = 0;
+            var pos = 0;
 
             if( typeof this.offset === 'string')
                 pos = String(this.offset).indexOf('%') !==-1 ? window.pageYOffset + window.innerHeight*parseInt(this.offset.replace('%',''))/100 : window.pageYOffset + window.innerHeight;
@@ -189,8 +189,8 @@ export default {
             if ( (this.bounding.top <= pos && !this.shown) || this.animation === 'parallax') {
 
                 if( this.animation === 'increment') {
-                    let vm = this;
-                    let delay = parseFloat(this.delay)<10?parseFloat(this.delay)*1000:this.delay;
+                    var vm = this;
+                    var delay = parseFloat(this.delay)<10?parseFloat(this.delay)*1000:this.delay;
                     setTimeout(function(){ vm.tween(0, vm.$el.textContent) }, delay);
                 }
                 else if( this.animation === 'parallax') {
@@ -223,7 +223,7 @@ export default {
             }
         }
     },
-    mounted() {
+    mounted: function() {
 	      if( this.mobile !== "disabled" || window.innerWidth > 640  ) {
 		      this.$el.classList.add('on-scroll--wait');
 		      this.listen();
@@ -231,7 +231,7 @@ export default {
 		      this.scroll();
 	      }
     },
-    destroyed() {
+    destroyed: function() {
 
         this.ignore();
     }
