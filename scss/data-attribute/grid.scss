@@ -1,6 +1,6 @@
 $grid-space: 0 !default;
 $grid-margin : 0 $grid-space !default;
-$grid-col-padding : 0 $grid-space/2 !default;
+$grid-col-padding : $grid-space/2 !default;
 $grid-row-margin : $grid-space*2 !default;
 $grid-row-padding: false !default;
 
@@ -9,6 +9,8 @@ $grid-breakpoints : false !default;
 $grid-flex : false !default;
 $grid-table : true !default;
 $grid-col-count : 12 !default;
+$grid-col-count-mobile : 0 !default;
+$grid-col-padding-mobile: 0 !default;
 
 @mixin data-grid {
 
@@ -16,6 +18,7 @@ $grid-col-count : 12 !default;
 		display: flex; flex-direction: row; flex-wrap: wrap; width: 100%;
 		@if ($grid-row-padding) { padding: $grid-row-padding }
 		@if ($grid-row-margin) { & + & { margin-top: $grid-row-margin } }
+		@if ($grid-col-padding) { margin-left: -$grid-col-padding; margin-right: -$grid-col-padding; width: calc(100% + #{$grid-col-padding*2}) }
 	}
 	[data-row="right"]{ justify-content: flex-end }
 	[data-row="center"]{ justify-content: center }
@@ -41,10 +44,14 @@ $grid-col-count : 12 !default;
 		}
 	}
 
-
 	[data-col]{
 		flex: 0 1 auto; align-self: auto; position: relative;
-		@if ($grid-col-padding) { padding: $grid-col-padding }
+		@if ($grid-col-padding) { padding: 0 $grid-col-padding }
+		@if ($grid-col-padding-mobile) {
+			@media #{$to-tablet}{
+				padding: 0 $grid-col-padding-mobile;
+			}
+		}
 	}
 
 	@each $count in $grid-col-count{
@@ -76,9 +83,27 @@ $grid-col-count : 12 !default;
 		.internet.explorer &{ max-width: 3*(100%/4) }
 	}
 
-	[data-col]{
+
+	@media #{$to-tablet} {
+			[data-col]{flex-basis: 100% }
+			[data-col-offset]{ margin-left: 0 }
+	}
+
+	@if ($grid-col-padding-mobile){
 		@media #{$to-tablet} {
-			flex-basis: 100%;
+			[data-row]{
+				margin-left: -$grid-col-padding-mobile; margin-right: -$grid-col-padding-mobile; width: calc(100% + #{$grid-col-padding-mobile*2})
+			}
+		}
+	}
+	@if ($grid-col-count-mobile){
+		@media #{$to-tablet} {
+			@each $count in $grid-col-count-mobile{
+				@for $i from 1 through $count{
+					[data-mobile-col="#{$i}/#{$count}"] { flex-basis: (100%/($count/$i)) }
+					[data-mobile-col-offset="#{$i}/#{$count}"] { margin-left: (100%/($count/$i)) }
+				}
+			}
 		}
 	}
 
@@ -88,6 +113,9 @@ $grid-col-count : 12 !default;
 			@if ($grid-col-padding) {
 				padding: $grid-col-padding
 			}
+			@if ($grid-col-padding-mobile) {
+				padding: $grid-col-padding-mobile
+			}
 		}
 
 		[data-tab-row]{ flex-wrap: wrap }
@@ -95,10 +123,20 @@ $grid-col-count : 12 !default;
 		[data-tab-row="space-around"]{ justify-content: space-around }
 		[data-tab-row="space-between"]{ justify-content: space-between }
 
-		@each $count in $grid-col-count{
-			@for $i from 1 through $count{
-				[data-tab-col="#{$i}/#{$count}"] { flex-basis: (100%/($count/$i)) }
-				[data-tab-col-offset="#{$i}/#{$count}"] { margin-left: (100%/($count/$i)) }
+		@if ($grid-col-count-mobile){
+
+			@each $count in $grid-col-count-mobile{
+				@for $i from 1 through $count{
+					[data-tab-col="#{$i}/#{$count}"] { flex-basis: (100%/($count/$i)) }
+					[data-tab-col-offset="#{$i}/#{$count}"] { margin-left: (100%/($count/$i)) }
+				}
+			}
+		} @else {
+			@each $count in $grid-col-count{
+				@for $i from 1 through $count{
+					[data-tab-col="#{$i}/#{$count}"] { flex-basis: (100%/($count/$i)) }
+					[data-tab-col-offset="#{$i}/#{$count}"] { margin-left: (100%/($count/$i)) }
+				}
 			}
 		}
 
@@ -108,6 +146,7 @@ $grid-col-count : 12 !default;
 		[data-tab-col="2/3"] { flex-basis: 2*(100%/3) }
 		[data-tab-col="3/4"] { flex-basis: 3*(100%/4) }
 	}
+
 }
 
 
