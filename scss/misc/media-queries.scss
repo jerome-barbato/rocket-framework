@@ -1,0 +1,28 @@
+// Dummy queries for mqpaker, define media query order in generated css
+
+@media #{$from-4k} {          .dummy{ display: block } }
+@media #{$only-4k} {          .dummy{ display: block } }
+@media #{$from-large} {       .dummy{ display: block } }
+@media #{$to-large} {         .dummy{ display: block } }
+@media #{$only-large} {       .dummy{ display: block } }
+@media #{$from-small} {       .dummy{ display: block } }
+@media #{$to-small} {         .dummy{ display: block } }
+@media #{$only-small} {       .dummy{ display: block } }
+@media #{$from-tablet} {      .dummy{ display: block } }
+@media #{$to-tablet} {        .dummy{ display: block } }
+@media #{$only-tablet} {      .dummy{ display: block } }
+@media #{$tablet-landscape} { .dummy{ display: block } }
+@media #{$tablet-portrait} {  .dummy{ display: block } }
+@media #{$from-phone} {       .dummy{ display: block } }
+@media #{$to-phone} {         .dummy{ display: block } }
+@media #{$only-phone} {       .dummy{ display: block } }
+@media #{$from-phone-m} {     .dummy{ display: block } }
+@media #{$to-phone-m} {       .dummy{ display: block } }
+@media #{$only-phone-m} {     .dummy{ display: block } }
+@media #{$from-phone-s} {     .dummy{ display: block } }
+@media #{$to-phone-s} {       .dummy{ display: block } }
+@media #{$only-phone-s} {     .dummy{ display: block } }
+@media #{$phone-landscape} {  .dummy{ display: block } }
+@media #{$phone-portrait} {   .dummy{ display: block } }
+@media #{$retina} {           .dummy{ display: block } }
+@media print {                .dummy{ display: block } }

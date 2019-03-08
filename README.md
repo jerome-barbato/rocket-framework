@@ -9,6 +9,7 @@ Use [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-impor
     @import "node_modules/@metabolism/framework/scss/function/**/*.scss";
     @import "node_modules/@metabolism/framework/scss/variable/**/*.scss";
     @import "node_modules/@metabolism/framework/scss/mixin/**/*.scss";
+    @import "node_modules/@metabolism/framework/scss/misc/**/*.scss";
     @import "node_modules/@metabolism/framework/scss/class/**/*.scss";
     @import "node_modules/@metabolism/framework/scss/data-attribute/**/*.scss";
     
