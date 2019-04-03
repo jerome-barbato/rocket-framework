@@ -92,7 +92,12 @@ $grid-col-padding-mobile: 0 !default;
 	@if ($grid-col-padding-mobile){
 		@media #{$to-tablet} {
 			[data-row]{
+				@if ($grid-col-padding-mobile != 0) {
 				margin-left: -$grid-col-padding-mobile; margin-right: -$grid-col-padding-mobile; width: calc(100% + #{$grid-col-padding-mobile*2})
+			}
+				@else {
+					margin-left: 0; margin-right: 0; width: 100%
+				}
 			}
 		}
 	}

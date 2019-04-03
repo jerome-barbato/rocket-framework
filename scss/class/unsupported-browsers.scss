@@ -12,9 +12,7 @@ $unsupported-text-fr: 'Votre navigateur web n\'est pas supporté par ce site, ve
       height: 100%;
       > *, &:before{ display: none!important; visibility: hidden!important }
       &:after{
-        position: absolute; left: 0; width: 100%; top: 50%; margin-top: -0.5em;
-        content:$unsupported-text-en;
-        font-family: Arial, sans-serif; text-align: center; font-size: 12px;
+        position: absolute; left: 0; width: 100%; top: 50%; margin-top: -0.5em;content:$unsupported-text-en;font-family: Arial, sans-serif; text-align: center; font-size: 12px;
         [lang="fr"] &{ content: $unsupported-text-fr }
       }
     }
