@@ -16,7 +16,7 @@
     $i: $i+1;
   }
 
-  @return $will-change+unquote('; transition-duration:')+$speed+unquote('; transition-timing-function:')+$easing+unquote('; will-change:')+$will-change+unquote('; backface-visibility:hidden');
+  @return $will-change+unquote('; transition-duration:')+$speed+unquote('; transition-timing-function:')+$easing+unquote('; will-change:')+$will-change+unquote(';');
 }
 
 $transition-duration : 0.3s !default;

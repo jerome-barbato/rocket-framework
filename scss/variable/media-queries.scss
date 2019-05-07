@@ -20,6 +20,14 @@ $from-phone            : $media+" and (min-width: "+($screen-phone)+")";
 $from-phone-m          : $media+" and (min-width: "+($screen-phone-m)+")";
 $from-phone-s          : $media+" and (min-width: "+($screen-phone-s)+")";
 
+// From [value] excluded to infinity
+$exclude-large            : $media+" and (min-width: "+($screen-large + 1px)+")";
+$exclude-small            : $media+" and (min-width: "+($screen-small + 1px)+")";
+$exclude-tablet           : $media+" and (min-width: "+($screen-tablet + 1px)+")";
+$exclude-phone            : $media+" and (min-width: "+($screen-phone + 1px)+")";
+$exclude-phone-m          : $media+" and (min-width: "+($screen-phone-m + 1px)+")";
+$exclude-phone-s          : $media+" and (min-width: "+($screen-phone-s + 1px)+")";
+
 // From 0 to [value]
 $to-large              : $media+" and (max-width: "+($screen-4k - 1px)+")";
 $to-small              : $media+" and (max-width: "+($screen-large - 1px)+")";
@@ -27,6 +35,14 @@ $to-tablet             : $media+" and (max-width: "+($screen-small - 1px)+")";
 $to-phone              : $media+" and (max-width: "+($screen-tablet - 1px)+")";
 $to-phone-m            : $media+" and (max-width: "+($screen-phone - 1px)+")";
 $to-phone-s            : $media+" and (max-width: "+($screen-phone-m - 1px)+")";
+
+// From 0 to [value] included
+$include-large         : $media+" and (max-width: "+($screen-large)+")";
+$include-small         : $media+" and (max-width: "+($screen-small)+")";
+$include-tablet        : $media+" and (max-width: "+($screen-tablet)+")";
+$include-phone         : $media+" and (max-width: "+($screen-phone)+")";
+$include-phone-m       : $media+" and (max-width: "+($screen-phone-m)+")";
+$include-phone-s       : $media+" and (max-width: "+($screen-phone-s)+")";
 
 // [value] only
 $only-4k               : $from-4k;
@@ -38,10 +54,6 @@ $only-phone-m          : $media+" and (min-width: "+$screen-phone-m+") and (max-
 $only-phone-s          : $to-phone-s;
 
 // Specific
-$phone-portrait   : $media+" and (max-width: "+($screen-tablet - 1px)+") and (orientation: portrait)";
-$phone-landscape  : $media+" and (max-width: "+($screen-tablet - 1px)+") and (orientation: landscape)";
-$tablet-portrait   : $media+" and (max-width: "+($screen-small - 1px)+") and (orientation: portrait)";
-$tablet-landscape  : $media+" and (max-width: "+($screen-small - 1px)+") and (orientation: landscape)";
 $retina           : "(-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi)";
 
 

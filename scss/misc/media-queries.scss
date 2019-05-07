@@ -1,28 +1,43 @@
 // Dummy queries for mqpaker, define media query order in generated css
 
-@media #{$from-4k} {          .dummy{ display: block } }
-@media #{$only-4k} {          .dummy{ display: block } }
-@media #{$from-large} {       .dummy{ display: block } }
-@media #{$to-large} {         .dummy{ display: block } }
-@media #{$only-large} {       .dummy{ display: block } }
-@media #{$from-small} {       .dummy{ display: block } }
-@media #{$to-small} {         .dummy{ display: block } }
-@media #{$only-small} {       .dummy{ display: block } }
-@media #{$from-tablet} {      .dummy{ display: block } }
-@media #{$to-tablet} {        .dummy{ display: block } }
-@media #{$only-tablet} {      .dummy{ display: block } }
-@media #{$tablet-landscape} { .dummy{ display: block } }
-@media #{$tablet-portrait} {  .dummy{ display: block } }
-@media #{$from-phone} {       .dummy{ display: block } }
-@media #{$to-phone} {         .dummy{ display: block } }
-@media #{$only-phone} {       .dummy{ display: block } }
-@media #{$from-phone-m} {     .dummy{ display: block } }
-@media #{$to-phone-m} {       .dummy{ display: block } }
-@media #{$only-phone-m} {     .dummy{ display: block } }
-@media #{$from-phone-s} {     .dummy{ display: block } }
-@media #{$to-phone-s} {       .dummy{ display: block } }
-@media #{$only-phone-s} {     .dummy{ display: block } }
-@media #{$phone-landscape} {  .dummy{ display: block } }
-@media #{$phone-portrait} {   .dummy{ display: block } }
-@media #{$retina} {           .dummy{ display: block } }
-@media print {                .dummy{ display: block } }
+@media #{$from-4k} {          .dummy{ order:1 } }
+@media #{$only-4k} {          .dummy{ order:1 } }
+
+@media #{$from-large} {       .dummy{ order:1 } }
+@media #{$to-large} {         .dummy{ order:1 } }
+@media #{$only-large} {       .dummy{ order:1 } }
+@media #{$exclude-large} {       .dummy{ order:1 } }
+@media #{$include-large} {       .dummy{ order:1 } }
+
+@media #{$from-small} {       .dummy{ order:1 } }
+@media #{$to-small} {         .dummy{ order:1 } }
+@media #{$only-small} {       .dummy{ order:1 } }
+@media #{$exclude-small} {       .dummy{ order:1 } }
+@media #{$include-small} {       .dummy{ order:1 } }
+
+@media #{$from-tablet} {      .dummy{ order:1 } }
+@media #{$to-tablet} {        .dummy{ order:1 } }
+@media #{$only-tablet} {      .dummy{ order:1 } }
+@media #{$exclude-tablet} {      .dummy{ order:1 } }
+@media #{$include-tablet} {      .dummy{ order:1 } }
+
+@media #{$from-phone} {       .dummy{ order:1 } }
+@media #{$to-phone} {         .dummy{ order:1 } }
+@media #{$only-phone} {       .dummy{ order:1 } }
+@media #{$exclude-phone} {       .dummy{ order:1 } }
+@media #{$include-phone} {       .dummy{ order:1 } }
+
+@media #{$from-phone-m} {     .dummy{ order:1 } }
+@media #{$to-phone-m} {       .dummy{ order:1 } }
+@media #{$only-phone-m} {     .dummy{ order:1 } }
+@media #{$exclude-phone-m} {     .dummy{ order:1 } }
+@media #{$include-phone-m} {     .dummy{ order:1 } }
+
+@media #{$from-phone-s} {     .dummy{ order:1 } }
+@media #{$to-phone-s} {       .dummy{ order:1 } }
+@media #{$only-phone-s} {     .dummy{ order:1 } }
+@media #{$exclude-phone-s} {     .dummy{ order:1 } }
+@media #{$include-phone-s} {     .dummy{ order:1 } }
+
+@media #{$retina} {           .dummy{ order:1 } }
+@media print {                .dummy{ order:1 } }

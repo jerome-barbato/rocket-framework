@@ -1,8 +1,8 @@
 on-scroll{ visibility: hidden }
 
-$aos-offset-rem: 8rem!default;
 $aos-duration: 0.5s!default;
-$aos-easing: $ease-in-out-cubic!default;
+$aos-delay: $aos-duration/10!default;
+$aos-easing: $ease-out-cubic!default;
 $aos-animations-list: $animations!default;
 
 .on-scroll{
@@ -14,5 +14,16 @@ $aos-animations-list: $animations!default;
 		&--#{$name}{ animation-name: $name; will-change: $properties }
 	}
 	&--increment{ animation-name: fade-in; will-change: opacity }
+	&--stack{
+		animation: none;
+		> *{
+			animation-fill-mode: both; animation-duration: $aos-duration; animation-timing-function: $aos-easing; backface-visibility: hidden;
+			animation-name: slide-up; will-change: opacity, transform;
+			@for $i from 1 through 10{
+
+				&:nth-child(#{$i}){ animation-delay: $i*$aos-delay}
+			}
+		}
+	}
 	&--parallax{ animation: none; will-change: transform }
 }

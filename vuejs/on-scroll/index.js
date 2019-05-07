@@ -61,7 +61,9 @@ export default {
         invert: { default: false },
         center: { default: false },
         loop: { default: false },
-        mobile: { default: 'active' }
+        small: { default: 'active' },
+        tablet: { default: 'disabled' },
+        phone: { default: 'disabled' }
     },
     data: function(){
         return{
@@ -224,12 +226,20 @@ export default {
         }
     },
     mounted: function() {
-	      if( this.mobile !== "disabled" || window.innerWidth > 640  ) {
+	      if(
+	          (this.phone !== "disabled" && window.innerWidth <= 640) ||
+              (this.tablet !== "disabled" && window.innerWidth <= 768 && window.innerWidth > 640) ||
+              (this.small !== "disabled" && window.innerWidth <= 1024 && window.innerWidth > 768) ||
+              (window.innerWidth > 1024)
+          ) {
 		      this.$el.classList.add('on-scroll--wait');
 		      this.listen();
 		      this.update();
 		      this.scroll();
 	      }
+	      else{
+              this.$el.classList.remove('on-scroll');
+          }
     },
     destroyed: function() {
 

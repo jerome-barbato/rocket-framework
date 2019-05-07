@@ -2,7 +2,7 @@
 @mixin animations-keyframes {
 
   $animation-offset-rem: 6rem !default;
-  $animation-offset: 50% !default;
+  $animation-offset: 100% !default;
 
   @keyframes fade-in { 0%{ opacity: 0 } 100%{ opacity: 1 } }
   @keyframes fade-out { 0%{ opacity: 1 } 100%{ opacity: 0 } }
@@ -15,25 +15,25 @@
   @keyframes slide-left { 0%{ opacity: 0; transform: translateX($animation-offset-rem) } 100%{ opacity: 1; transform: none }}
   @keyframes unslide-right { 100%{ opacity: 0; transform: translateX($animation-offset-rem) } 0%{ opacity: 1; transform: none }}
 
-  @keyframes slide-from-top { 0%{ transform: translateY(-100%) } 100%{ transform: none }}
-  @keyframes slide-from-bottom { 0%{ transform: translateY(100%) } 100%{ transform: none }}
-  @keyframes slide-from-left { 0%{ transform: translateX(-100%) } 100%{transform: none }}
-  @keyframes slide-from-right { 0%{ transform: translateX(100%) } 100%{ transform: none }}
+  @keyframes slide-from-top { 0%{ transform: translateY(-$animation-offset) } 100%{ transform: none }}
+  @keyframes slide-from-bottom { 0%{ transform: translateY($animation-offset) } 100%{ transform: none }}
+  @keyframes slide-from-left { 0%{ transform: translateX(-$animation-offset) } 100%{transform: none }}
+  @keyframes slide-from-right { 0%{ transform: translateX($animation-offset) } 100%{ transform: none }}
 
-  @keyframes slide-to-top { 0%{ transform: none } 100%{ transform: translateY(-100%) }}
-  @keyframes slide-to-bottom { 0%{ transform: none } 100%{ transform: translateY(100%) }}
-  @keyframes slide-to-left { 0%{ transform: none } 100%{ transform: translateX(-100%) }}
-  @keyframes slide-to-right { 0%{ transform: none } 100%{ transform: translateX(100%) }}
+  @keyframes slide-to-top { 0%{ transform: none } 100%{ transform: translateY(-$animation-offset) }}
+  @keyframes slide-to-bottom { 0%{ transform: none } 100%{ transform: translateY($animation-offset) }}
+  @keyframes slide-to-left { 0%{ transform: none } 100%{ transform: translateX(-$animation-offset) }}
+  @keyframes slide-to-right { 0%{ transform: none } 100%{ transform: translateX($animation-offset) }}
 
-  @keyframes fade-from-top { 0%{ opacity:0; transform: translateY(-100%) } 100%{ transform: none }}
-  @keyframes fade-from-bottom { 0%{ opacity:0; transform: translateY(100%) } 100%{ transform: none }}
-  @keyframes fade-from-left { 0%{ opacity:0; transform: translateX(-100%) } 100%{transform: none }}
-  @keyframes fade-from-right { 0%{ opacity:0; transform: translateX(100%) } 100%{ transform: none }}
+  @keyframes fade-from-top { 0%{ opacity:0; transform: translateY(-$animation-offset) } 100%{ transform: none }}
+  @keyframes fade-from-bottom { 0%{ opacity:0; transform: translateY($animation-offset) } 100%{ transform: none }}
+  @keyframes fade-from-left { 0%{ opacity:0; transform: translateX(-$animation-offset) } 100%{transform: none }}
+  @keyframes fade-from-right { 0%{ opacity:0; transform: translateX($animation-offset) } 100%{ transform: none }}
 
-  @keyframes fade-to-top { 0%{ transform: none } 100%{ opacity:0; transform: translateY(-100%) }}
-  @keyframes fade-to-bottom { 0%{ transform: none } 100%{ opacity:0; transform: translateY(100%) }}
-  @keyframes fade-to-left { 0%{ transform: none } 100%{ opacity:0; transform: translateX(-100%) }}
-  @keyframes fade-to-right { 0%{ transform: none } 100%{ opacity:0; transform: translateX(100%) }}
+  @keyframes fade-to-top { 0%{ transform: none } 100%{ opacity:0; transform: translateY(-$animation-offset) }}
+  @keyframes fade-to-bottom { 0%{ transform: none } 100%{ opacity:0; transform: translateY($animation-offset) }}
+  @keyframes fade-to-left { 0%{ transform: none } 100%{ opacity:0; transform: translateX(-$animation-offset) }}
+  @keyframes fade-to-right { 0%{ transform: none } 100%{ opacity:0; transform: translateX($animation-offset) }}
 
   @keyframes zoom-in { 0%{ opacity: 0; transform: scale(0.8) } 100%{ opacity: 1; transform: none }}
   @keyframes scale { 0%{ transform: scale(0) } 100%{ transform: none }}
