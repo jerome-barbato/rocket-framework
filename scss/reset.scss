@@ -36,7 +36,7 @@ template {
 	display: none;
 }
 
-a, input, button {
+a, input, button, [role="button"] {
 	&:active {
 		-webkit-tap-highlight-color: rgba(0,0,0,0);
 	}

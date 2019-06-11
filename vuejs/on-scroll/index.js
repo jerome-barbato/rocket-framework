@@ -1,5 +1,16 @@
 import TWEEN from '@tweenjs/tween.js';
 
+let supportsPassive = false;
+try {
+    var opts = Object.defineProperty({}, 'passive', {
+        get: function() {
+            supportsPassive = true;
+        }
+    });
+    window.addEventListener("testPassive", null, opts);
+    window.removeEventListener("testPassive", null, opts);
+} catch (e) {}
+
 const aosPrefixAnimation = (function(){
 
     function lowerCaseEventTypes(prefix) {
@@ -46,99 +57,111 @@ const aosPrefixAnimation = (function(){
     return {};
 })();
 
-export default {
-    name :'on-scroll',
-    render: function(h) {
-        return h(this.tag, {class:'on-scroll'}, this.$slots.default);
-    },
-    props:{
-        animation: { default: 'fade' },
-        delay: { default: 0 },
-        offset: { default: 100 },
-        strength: { default: 100 },
-        duration: { default: 0.5 },
-        tag: { default: 'div' },
-        invert: { default: false },
-        center: { default: false },
-        loop: { default: false },
-        small: { default: 'active' },
-        tablet: { default: 'disabled' },
-        phone: { default: 'disabled' }
-    },
-    data: function(){
-        return{
+function AOSInterface($el, props){
+
+    var data = {
             bounding: {},
             interval: false,
+        timeout: false,
             current: false,
-            shown: false
+        shown: false,
+        strengthPercent : String(props.strength).indexOf('%') !==-1,
+        offsetPercent : String(props.offset).indexOf('%') !==-1
+    };
+
+    data.strength = parseInt(String(props.strength).replace('%',''));
+    data.offset = parseInt(String(props.offset).replace('%',''));
+    data.delay = parseFloat(String(props.delay).replace('ms','').replace('s',''));
+    data.duration = parseFloat(String(props.duration).replace('ms','').replace('s',''));
+
+    var methods = {
+        mounted: function() {
+            if(
+                (props.phone !== "disabled" && window.innerWidth <= 640) ||
+                (props.tablet !== "disabled" && window.innerWidth <= 768 && window.innerWidth > 640) ||
+                (props.small !== "disabled" && window.innerWidth <= 1024 && window.innerWidth > 768) ||
+                (window.innerWidth > 1024)
+            ) {
+                $el.classList.add('on-scroll--wait');
+                methods.listen();
+            }
+            else{
+                $el.classList.remove('on-scroll');
         }
     },
-    methods : {
         update: function(){
-            var rect = this.$el.getBoundingClientRect(),
+            var rect = $el.getBoundingClientRect(),
                 scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
                 scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-            this.bounding = { top: rect.top + scrollTop, left: rect.left + scrollLeft, height: rect.height, width: rect.width, bottom: rect.bottom + scrollTop}
+            data.bounding = { top: rect.top + scrollTop, left: rect.left + scrollLeft, height: rect.height, width: rect.width, bottom: rect.bottom + scrollTop};
+
+            methods.scroll();
         },
         listen: function(){
-            document.addEventListener('resize', this.update);
-            document.addEventListener('scroll', this.scroll);
-
-            var vm = this;
-            this.interval = setInterval(function(){
-                vm.update();
-                vm.scroll();
-            }, 1000);
+            document.addEventListener('resize', methods.update);
+            document.addEventListener('scroll', methods.update, supportsPassive?{passive:true}:false );
+            methods.update();
         },
-        ignore: function(){
-            clearInterval(this.interval);
-            document.removeEventListener('scroll', this.scroll);
-            document.removeEventListener('resize', this.update);
+        destroyed: function(){
+            clearInterval(data.interval);
+            document.removeEventListener('scroll', methods.update);
+            document.removeEventListener('resize', methods.update);
         },
         end: function(){
 
-            if( this.delay )
-                this.$el.style[aosPrefixAnimation.fn+'Delay'] = '';
+            if( data.delay )
+                $el.style[aosPrefixAnimation.fn+'Delay'] = '';
 
-            if( this.duration )
-                this.$el.style[aosPrefixAnimation.fn+'Duration'] = '';
+            if( data.duration )
+                $el.style[aosPrefixAnimation.fn+'Duration'] = '';
 
-            this.$el.classList.remove('on-scroll--'+this.animation);
-            this.$el.classList.remove('on-scroll');
+            $el.classList.remove('on-scroll--'+props.animation);
+            $el.classList.remove('on-scroll');
         },
         parallax: function(pos){
 
             var offset = 0;
 
-            if (pos > this.bounding.top && this.bounding.bottom > window.pageYOffset) {
+            if (pos > data.bounding.top && data.bounding.bottom > window.pageYOffset) {
 
-                if (this.bounding.top < window.innerHeight) {
-                    offset = window.pageYOffset / this.bounding.bottom;
+                if (data.bounding.top < window.innerHeight) {
+                    offset = window.pageYOffset / data.bounding.bottom;
                 } else {
-                    offset = (pos - this.bounding.top) / (this.bounding.bottom + window.innerHeight - this.bounding.top);
+                    offset = (pos - data.bounding.top) / (data.bounding.bottom + window.innerHeight - data.bounding.top);
                 }
             }
             else {
 
-                offset = pos > this.bounding.top ? 1 : 0;
+                offset = pos > data.bounding.top ? 1 : 0;
             }
 
             offset = Math.max(0, Math.min(1, offset));
-            offset = this.invert ? 1 - offset : offset;
-            offset = this.center ? offset - 0.5 : offset;
+            offset = props.invert ? 1 - offset : offset;
+            offset = props.center ? offset - 0.5 : offset;
 
-            if( this.current !== offset)
+            if( data.current !== offset)
             {
-                this.current = offset;
-                var strength = String(this.strength).indexOf('%') !==-1 ? Math.round(offset*parseInt(this.strength.replace('%',''))*100)/100+'%' : Math.round(offset*parseInt(this.strength)*10)/10+'px';
-                this.$el.style.transform = 'translateY('+strength+')';
-                this.$el.style.WebkitTransform = 'translateY('+strength+')';
+                data.current = offset;
+
+                let value = data.strengthPercent ? Math.round(offset*data.strength*1000)/1000 : Math.round(offset*data.strength*10)/10;
+                let strength = data.strengthPercent ? value+'%' : value+'px';
+
+                $el.style.transform = 'translateY('+strength+')';
+                $el.style.WebkitTransform = 'translateY('+strength+')';
+
+                if( !data.strengthPercent ){
+                    clearTimeout(data.timeout);
+                    data.timeout = setTimeout(function(){
+                        value = Math.round(value);
+                        strength = data.strengthPercent ? value+'%' : value+'px';
+                        $el.style.transform = 'translateY('+strength+')';
+                        $el.style.WebkitTransform = 'translateY('+strength+')';
+                    },100);
+                }
             }
         },
         tween: function (startValue, endValue) {
-
-            var vm = this;
 
             if( document.documentElement.lang === 'fr' )
                 endValue = parseFloat( endValue.replace(' ', '').replace(/,/, '.') );
@@ -170,9 +193,9 @@ export default {
                 .to({ tweeningValue: endValue }, 1000)
                 .easing(TWEEN.Easing.Cubic.Out)
                 .onUpdate(function (object) {
-                    vm.$el.textContent = format(object.tweeningValue);
+                    $el.textContent = format(object.tweeningValue);
                 })
-                .onComplete(this.end)
+                .onComplete(methods.end)
                 .start();
 
             animate();
@@ -181,68 +204,122 @@ export default {
             
             var pos = 0;
 
-            if( typeof this.offset === 'string')
-                pos = String(this.offset).indexOf('%') !==-1 ? window.pageYOffset + window.innerHeight*parseInt(this.offset.replace('%',''))/100 : window.pageYOffset + window.innerHeight;
-            else if( this.animation === 'parallax')
+            if( props.animation === 'parallax')
                 pos = window.pageYOffset + window.innerHeight;
+            else if( data.offsetPercent )
+                pos = window.pageYOffset + window.innerHeight*data.offset/100;
             else
-                pos = window.pageYOffset + window.innerHeight - this.offset;
+                pos = window.pageYOffset + window.innerHeight - data.offset;
 
-            if ( (this.bounding.top <= pos && !this.shown) || this.animation === 'parallax') {
+            if ( (data.bounding.top <= pos && !data.shown) || props.animation === 'parallax') {
 
-                if( this.animation === 'increment') {
-                    var vm = this;
-                    var delay = parseFloat(this.delay)<10?parseFloat(this.delay)*1000:this.delay;
-                    setTimeout(function(){ vm.tween(0, vm.$el.textContent) }, delay);
+                if( props.animation === 'increment') {
+                    var delay = data.delay<10?data.delay*1000:data.delay;
+                    setTimeout(function(){ methods.tween(0, $el.textContent) }, delay);
                 }
-                else if( this.animation === 'parallax') {
-                    this.parallax(pos);
+                else if( props.animation === 'parallax') {
+                    methods.parallax(pos);
                 }
                 else {
 
-                    if (this.delay)
-                        this.$el.style[aosPrefixAnimation.fn + 'Delay'] = parseFloat(this.delay) + (parseFloat(this.delay) < 10 ? 's' : 'ms');
+                    if (data.delay)
+                        $el.style[aosPrefixAnimation.fn + 'Delay'] = data.delay + (data.delay < 10 ? 's' : 'ms');
 
-                    if (this.duration)
-                        this.$el.style[aosPrefixAnimation.fn + 'Duration'] = parseFloat(this.duration) + (parseFloat(this.duration) < 10 ? 's' : 'ms');
+                    if (data.duration)
+                        $el.style[aosPrefixAnimation.fn + 'Duration'] = data.duration + (data.duration < 10 ? 's' : 'ms');
 
-                    this.$el.addEventListener(aosPrefixAnimation.end, this.end, false);
+                    $el.addEventListener(aosPrefixAnimation.end, methods.end, false);
                 }
 
-                if( !this.shown ){
-                    this.$el.classList.remove('on-scroll--wait');
-                    this.$el.classList.add('on-scroll--'+this.animation);
+                if( !data.shown ){
+                    $el.classList.remove('on-scroll--wait');
+                    $el.classList.add('on-scroll--'+props.animation);
 
-                    this.shown = true;
+                    data.shown = true;
                 }
             }
 
-            if( this.bounding.top > window.pageYOffset + window.innerHeight && this.shown && this.animation !== 'parallax'){
-                this.$el.classList.add('on-scroll--wait');
-                this.$el.classList.remove('on-scroll--'+this.animation);
+            if( data.bounding.top > window.pageYOffset + window.innerHeight && data.shown && props.animation !== 'parallax'){
+                $el.classList.add('on-scroll--wait');
+                $el.classList.remove('on-scroll--'+props.animation);
 
-                this.shown = false;
+                data.shown = false;
             }
+            }
+        }
+
+    return methods;
+};
+
+const AOSComponent = {
+    name :'on-scroll',
+    render: function(h) {
+        return h(this.tag, {class:'on-scroll'}, this.$slots.default);
+    },
+    props:{
+        animation: { default: 'fade-in' },
+        delay: { default: 0 },
+        offset: { default: 100 },
+        strength: { default: 100 },
+        duration: { default: 0.5 },
+        tag: { default: 'div' },
+        invert: { default: false },
+        center: { default: false },
+        loop: { default: false },
+        small: { default: 'active' },
+        tablet: { default: 'disabled' },
+        phone: { default: 'disabled' }
+    },
+    data: function(){
+        return{
+            interface: null
         }
     },
     mounted: function() {
-	      if(
-	          (this.phone !== "disabled" && window.innerWidth <= 640) ||
-              (this.tablet !== "disabled" && window.innerWidth <= 768 && window.innerWidth > 640) ||
-              (this.small !== "disabled" && window.innerWidth <= 1024 && window.innerWidth > 768) ||
-              (window.innerWidth > 1024)
-          ) {
-		      this.$el.classList.add('on-scroll--wait');
-		      this.listen();
-		      this.update();
-		      this.scroll();
-	      }
-	      else{
-              this.$el.classList.remove('on-scroll');
-          }
+	      this.interface = new AOSInterface(this.$el, this);
+	      this.interface.mounted();
     },
     destroyed: function() {
 
-        this.ignore();
+        this.interface.destroyed();
     }
 };
+
+
+const AOSDirective = {
+    name :'on-scroll',
+    inserted(el, binding, vnode) {
+
+        let props = {
+            animation: 'fade-in' ,
+            delay: 0,
+            offset: 100,
+            strength: 100,
+            duration: 0.5,
+            invert: false,
+            center: true,
+            loop: false,
+            small: 'active',
+            tablet: 'disabled',
+            phone: 'disabled'
+        };
+
+        props = {...props, ...binding.value };
+        el.classList.add('on-scroll');
+
+        el.aos = new AOSInterface(el, props);
+        el.aos.mounted();
+    },
+    unbind(el, binding, vnode) {
+        el.aos.destroyed()
+    }
+}
+
+const install = function (Vue, globalOptions) {
+    Vue.component(AOSComponent.name, AOSComponent)
+    Vue.directive(AOSDirective.name, AOSDirective)
+}
+const VueAOS = { AOSComponent, AOSDirective, install }
+
+export default VueAOS
+export { AOSComponent, AOSDirective, install }

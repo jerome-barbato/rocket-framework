@@ -14,7 +14,7 @@ Use [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-impor
     @import "node_modules/@metabolism/framework/scss/data-attribute/**/*.scss";
     
     /* VUEJS Specific */
-    @import "node_modules/@metabolism/framework/scss/vuejs/**/*.scss";
+    @import "node_modules/@metabolism/framework/vuejs/**/*.scss";
     
 ## Features
 
@@ -82,8 +82,8 @@ Use [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-impor
 
  Import lib
 
-    import onScroll from 'rocket-framework/vuejs/on-scroll';
-    Vue.component(onScroll.name, onScroll);
+    import VueAOS from '@metabolism/framework/vuejs/on-scroll'
+    Vue.use(VueAOS);
     
  Add markup
    
@@ -95,23 +95,36 @@ Use [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-impor
     <!-- Change delay and duration -->
     <on-scroll animation="parallax" delay="100" duration="500">Title</on-scroll>
     
- Available animation : 
-  - increment
+    <!-- use directive -->
+    <h2 class="title" v-on-scroll={animation:'fade-in'}>Title</h2>
+    
+ Available animations :
+  - fade-in     
+  - fade-out    
+  - slide-down  
   - slide-up
-  - slide-down
-  - slide-righ
   - slide-left
+  - slide-right 
+  - zoom-out    
   - zoom-in
-  - mask-right
+  - unzoom-in   
+  - unzoom-out  
+  - rotate-x    
+  - rotate-y    
+  - pop
+  - enlarge
+  
+Special animations :
+  - increment
   - parallax
   
  Parallax : 
  
     <!-- Parallax 200px -->
-    <on-scroll animation="parallax" offset="200">Title</on-scroll>
+    <on-scroll animation="parallax" strength="200px">Title</on-scroll>
    
     <!-- Parallax 10% from center, inverted offset -->
-    <on-scroll animation="parallax" invert="true" center="true" offset="10%">Title</on-scroll>
+    <on-scroll animation="parallax" invert="true" center="true" strength="10%">Title</on-scroll>
 
 
 ### Aspect ratio
