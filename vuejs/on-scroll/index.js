@@ -1,6 +1,6 @@
 import TWEEN from '@tweenjs/tween.js';
 
-let supportsPassive = false;
+var supportsPassive = false;
 try {
     var opts = Object.defineProperty({}, 'passive', {
         get: function() {
@@ -11,7 +11,7 @@ try {
     window.removeEventListener("testPassive", null, opts);
 } catch (e) {}
 
-const aosPrefixAnimation = (function(){
+var aosPrefixAnimation = (function(){
 
     function lowerCaseEventTypes(prefix) {
         prefix = prefix || '';
@@ -34,7 +34,7 @@ const aosPrefixAnimation = (function(){
             iteration: prefix + 'AnimationIteration'
         };
     }
-    const prefixes = ['webkit', 'Moz', 'O', ''];
+    var prefixes = ['webkit', 'Moz', 'O', ''];
     var style = document.documentElement.style;
 
     if(style.animationName !== undefined)
@@ -60,10 +60,10 @@ const aosPrefixAnimation = (function(){
 function AOSInterface($el, props){
 
     var data = {
-            bounding: {},
-            interval: false,
+        bounding: {},
+        interval: false,
         timeout: false,
-            current: false,
+        current: false,
         shown: false,
         strengthPercent : String(props.strength).indexOf('%') !==-1,
         offsetPercent : String(props.offset).indexOf('%') !==-1
@@ -87,8 +87,8 @@ function AOSInterface($el, props){
             }
             else{
                 $el.classList.remove('on-scroll');
-        }
-    },
+            }
+        },
         update: function(){
             var rect = $el.getBoundingClientRect(),
                 scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
@@ -144,8 +144,8 @@ function AOSInterface($el, props){
             {
                 data.current = offset;
 
-                let value = data.strengthPercent ? Math.round(offset*data.strength*1000)/1000 : Math.round(offset*data.strength*10)/10;
-                let strength = data.strengthPercent ? value+'%' : value+'px';
+                var value = data.strengthPercent ? Math.round(offset*data.strength*1000)/1000 : Math.round(offset*data.strength*10)/10;
+                var strength = data.strengthPercent ? value+'%' : value+'px';
 
                 $el.style.transform = 'translateY('+strength+')';
                 $el.style.WebkitTransform = 'translateY('+strength+')';
@@ -174,19 +174,19 @@ function AOSInterface($el, props){
 
             function animate () {
                 if (TWEEN.update())
-                    requestAnimationFrame(animate)
+                    requestAnimationFrame(animate);
             }
 
-             function format(value) {
-                 value = is_int ? Math.round(value) : (Math.round(value*1000)/1000);
-                 var n = is_int ? 0 :1;
-                 var re = '\\d(?=(\\d{' + (3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
-                 value = value.toString().replace(new RegExp(re, 'g'), '$& ');
+            function format(value) {
+                value = is_int ? Math.round(value) : (Math.round(value*1000)/1000);
+                var n = is_int ? 0 :1;
+                var re = '\\d(?=(\\d{' + (3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+                value = value.toString().replace(new RegExp(re, 'g'), '$& ');
 
-                 if( is_int )
-                     return value.replace(/ /g, unit_thousand);
-                 else
-                     return value.replace('.', unit_decimal);
+                if( is_int )
+                    return value.replace(/ /g, unit_thousand);
+                else
+                    return value.replace('.', unit_decimal);
             }
 
             new TWEEN.Tween({ tweeningValue: startValue })
@@ -215,7 +215,7 @@ function AOSInterface($el, props){
 
                 if( props.animation === 'increment') {
                     var delay = data.delay<10?data.delay*1000:data.delay;
-                    setTimeout(function(){ methods.tween(0, $el.textContent) }, delay);
+                    setTimeout(function(){ methods.tween(0, $el.textContent); }, delay);
                 }
                 else if( props.animation === 'parallax') {
                     methods.parallax(pos);
@@ -245,13 +245,13 @@ function AOSInterface($el, props){
 
                 data.shown = false;
             }
-            }
         }
+    };
 
     return methods;
-};
+}
 
-const AOSComponent = {
+var AOSComponent = {
     name :'on-scroll',
     render: function(h) {
         return h(this.tag, {class:'on-scroll'}, this.$slots.default);
@@ -273,11 +273,11 @@ const AOSComponent = {
     data: function(){
         return{
             interface: null
-        }
+        };
     },
     mounted: function() {
-	      this.interface = new AOSInterface(this.$el, this);
-	      this.interface.mounted();
+        this.interface = new AOSInterface(this.$el, this);
+        this.interface.mounted();
     },
     destroyed: function() {
 
@@ -286,11 +286,11 @@ const AOSComponent = {
 };
 
 
-const AOSDirective = {
+var AOSDirective = {
     name :'on-scroll',
-    inserted(el, binding, vnode) {
+    inserted: function(el, binding, vnode) {
 
-        let props = {
+        var props = {
             animation: 'fade-in' ,
             delay: 0,
             offset: 100,
@@ -304,22 +304,23 @@ const AOSDirective = {
             phone: 'disabled'
         };
 
-        props = {...props, ...binding.value };
+        props = Object.assign(props, binding.value);
         el.classList.add('on-scroll');
 
         el.aos = new AOSInterface(el, props);
         el.aos.mounted();
     },
-    unbind(el, binding, vnode) {
-        el.aos.destroyed()
+    unbind: function(el, binding, vnode) {
+        el.aos.destroyed();
     }
-}
+};
 
-const install = function (Vue, globalOptions) {
-    Vue.component(AOSComponent.name, AOSComponent)
-    Vue.directive(AOSDirective.name, AOSDirective)
-}
-const VueAOS = { AOSComponent, AOSDirective, install }
+var install = function (Vue, globalOptions) {
+    Vue.component(AOSComponent.name, AOSComponent);
+    Vue.directive(AOSDirective.name, AOSDirective);
+};
 
-export default VueAOS
-export { AOSComponent, AOSDirective, install }
+var VueAOS = { AOSComponent, AOSDirective, install }
+
+export default VueAOS;
+export { AOSComponent, AOSDirective, install };

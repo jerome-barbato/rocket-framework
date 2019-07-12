@@ -1,6 +1,6 @@
 {
   "name": "@metabolism/framework",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Scss/VueJS libraries",
   "repository": {
     "type": "git",
@@ -24,10 +24,12 @@
   "main": "./index.js",
   "files": [
     "vuejs",
-    "scss"
+    "scss",
+    "browser"
   ],
   "homepage": "https://github.com/wearemetabolism/rocket-framework#readme",
   "dependencies": {
-    "@tweenjs/tween.js": "^17.2.0"
+    "@tweenjs/tween.js": "^17.2.0",
+    "bowser": "^2.4.0"
   }
 }
