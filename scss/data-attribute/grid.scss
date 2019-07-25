@@ -39,7 +39,6 @@ $grid-col-padding-mobile: 0 !default;
 	@media #{$from-tablet} {
 		[data-row="nowrap"]{
 			flex-wrap: nowrap;
-
 			[data-col]{ flex: 1 }
 		}
 	}
@@ -58,7 +57,7 @@ $grid-col-padding-mobile: 0 !default;
 		@for $i from 1 through $count{
 			[data-col="#{$i}/#{$count}"] {
 				flex-basis: (100%/($count/$i));
-				.internet.explorer &{ max-width: (100%/($count/$i)) }
+				.ie &{ max-width: (100%/($count/$i)) }
 			}
 			[data-col-offset="#{$i}/#{$count}"] { margin-left: (100%/($count/$i)) }
 		}
@@ -66,26 +65,26 @@ $grid-col-padding-mobile: 0 !default;
 
 	[data-col="1/1"] {
 		flex-basis: 100%;
-		.internet.explorer &{ max-width: 100% }
+		.ie &{ max-width: 100% }
 	}
 
 	[data-col="1/2"] {
 		flex-basis: 50%;
-		.internet.explorer &{ max-width: 50% }
+		.ie &{ max-width: 50% }
 	}
 
 	[data-col="1/3"] {
 		flex-basis: (100%/3);
-		.internet.explorer &{ max-width: (100%/3) }
+		.ie &{ max-width: (100%/3) }
 	}
 	[data-col="1/4"] { flex-basis: (100%/4);
-		.internet.explorer &{ max-width: (100%/4) }
+		.ie &{ max-width: (100%/4) }
 	}
 	[data-col="2/3"] { flex-basis: 2*(100%/3);
-		.internet.explorer &{ max-width: 2*(100%/3) }
+		.ie &{ max-width: 2*(100%/3) }
 	}
 	[data-col="3/4"] { flex-basis: 3*(100%/4);
-		.internet.explorer &{ max-width: 3*(100%/4) }
+		.ie &{ max-width: 3*(100%/4) }
 	}
 
 
