@@ -123,7 +123,7 @@ function AOSInterface($el, props){
         },
         parallax: function(pos){
 
-            if( browser && browser.name == 'ie' && data.init )
+            if( browser && browser.name === 'ie' )
                 return;
 
             var offset = 0;
