@@ -44,7 +44,7 @@ $grid-col-padding-mobile: 0 !default;
 	}
 
 	[data-col]{
-		flex: 0 1 auto; align-self: auto; position: relative;
+		flex: 0 1 auto; align-self: auto; position: relative; min-width: 0;
 		@if ($grid-col-padding) { padding: 0 $grid-col-padding }
 		@if ($grid-col-padding-mobile) {
 			@media #{$to-tablet}{
@@ -155,7 +155,16 @@ $grid-col-padding-mobile: 0 !default;
 		[data-tab-col="2/3"] { flex-basis: 2*(100%/3) }
 		[data-tab-col="3/4"] { flex-basis: 3*(100%/4) }
 	}
+}
 
+@mixin data-col($col, $total) {
+	[data-col="#{$col}/#{$total}"] {
+		flex-basis: #{$col*100%/$total};
+		.ie &{ max-width: #{$col*100%/$total} }
+		@media #{$to-tablet} {
+			&{ flex-basis: 100% }
+		}
+	}
 }
 
 

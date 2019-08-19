@@ -60,6 +60,7 @@ var aosPrefixAnimation = (function(){
 function AOSInterface($el, props){
 
     var data = {
+        init: false,
         bounding: {},
         interval: false,
         timeout: false,
@@ -84,6 +85,7 @@ function AOSInterface($el, props){
             ) {
                 $el.classList.add('on-scroll--wait');
                 methods.listen();
+                data.init = true;
             }
             else{
                 $el.classList.remove('on-scroll');
@@ -120,6 +122,9 @@ function AOSInterface($el, props){
             $el.classList.remove('on-scroll');
         },
         parallax: function(pos){
+
+            if( browser && browser.name == 'ie' && data.init )
+                return;
 
             var offset = 0;
 
