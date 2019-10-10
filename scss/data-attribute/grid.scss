@@ -89,23 +89,23 @@ $grid-col-padding-mobile: 0 !default;
 
 
 	@media #{$to-tablet} {
-			[data-col]{flex-basis: 100% }
-			[data-col-offset]{ margin-left: 0 }
+		[data-col]{flex-basis: 100% }
+		[data-col-offset]{ margin-left: 0 }
 	}
 
 	@if ($grid-col-padding-mobile){
 		@media #{$to-tablet} {
 			[data-row]{
 				@if ($grid-col-padding-mobile != 0) {
-				margin-left: -$grid-col-padding-mobile; margin-right: -$grid-col-padding-mobile; width: calc(100% + #{$grid-col-padding-mobile*2})
-			}
+					margin-left: -$grid-col-padding-mobile; margin-right: -$grid-col-padding-mobile; width: calc(100% + #{$grid-col-padding-mobile*2})
+				}
 				@else {
 					margin-left: 0; margin-right: 0; width: 100%
 				}
 			}
 		}
 	}
-	@if ($grid-col-count-mobile){
+	@if ($grid-col-count-mobile and $grid-col-count-mobile>0){
 		@media #{$to-tablet} {
 			@each $count in $grid-col-count-mobile{
 				@for $i from 1 through $count{
@@ -132,7 +132,7 @@ $grid-col-padding-mobile: 0 !default;
 		[data-tab-row="space-around"]{ justify-content: space-around }
 		[data-tab-row="space-between"]{ justify-content: space-between }
 
-		@if ($grid-col-count-mobile){
+		@if ($grid-col-count-mobile and $grid-col-count-mobile > 1){
 
 			@each $count in $grid-col-count-mobile{
 				@for $i from 1 through $count{
