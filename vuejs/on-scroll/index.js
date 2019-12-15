@@ -234,6 +234,10 @@ function AOSInterface($el, props){
                         $el.style[aosPrefixAnimation.fn + 'Duration'] = data.duration + (data.duration < 10 ? 's' : 'ms');
 
                     $el.addEventListener(aosPrefixAnimation.end, methods.end, false);
+
+                    if(!props.repeat) {
+                        methods.destroyed();
+                    }
                 }
 
                 if( !data.shown ){
@@ -269,6 +273,7 @@ var AOSComponent = {
         duration: { default: 0.5 },
         tag: { default: 'div' },
         invert: { default: false },
+        repeat: { default: true },
         center: { default: false },
         loop: { default: false },
         small: { default: 'active' },
@@ -302,6 +307,7 @@ var AOSDirective = {
             strength: 100,
             duration: 0.5,
             invert: false,
+            repeat: true,
             center: true,
             loop: false,
             small: 'active',
