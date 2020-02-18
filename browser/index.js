@@ -13,7 +13,7 @@ function browserDetect(){
 	window.os = userTechData.os;
 	window.platform = userTechData.platform.type;
 
-	document.documentElement.className += (' ' + browser.name + ' ' + browser.name + '-' + browser.version.substr(0, browser.version.indexOf('.')) + ' ' + os.name+ ' ' + browser.engine.name + ('version' in browser.engine ? ' ' + browser.engine.name+'-' + browser.engine.version : '') + ' ' + os.name + '-' + os.versionName + ' ' + (browser.touch ? 'touch' : 'no-touch')).toLowerCase();
+	document.documentElement.className += (' ' + browser.name + ' ' + browser.name + '-' + (typeof browser.version != 'undefined' ? (browser.version.substr(0, browser.version.indexOf('.'))) : '') + ' ' + os.name+ ' ' + browser.engine.name + ('version' in browser.engine ? ' ' + browser.engine.name+'-' + browser.engine.version : '') + ' ' + os.name + '-' + os.versionName + ' ' + (browser.touch ? 'touch' : 'no-touch')).toLowerCase();
 }
 
 export default browserDetect;
