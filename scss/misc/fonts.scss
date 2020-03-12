@@ -1,5 +1,6 @@
 $font-families : ()!default;
 $font-woof2 : true!default;
+$font-display : swap!default;
 
   @each $font in $fonts {
 
@@ -19,6 +20,7 @@ $font-woof2 : true!default;
       font-weight: #{$weight};
       font-style: #{$style};
       font-stretch: #{$stretch};
+      font-display: #{$font-display};
     }
   }
   @else{
@@ -28,6 +30,7 @@ $font-woof2 : true!default;
       font-weight: #{$weight};
       font-style: #{$style};
       font-stretch: #{$stretch};
+      font-display: #{$font-display};
     }
   }
 
