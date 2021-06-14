@@ -1,7 +1,9 @@
+@use "sass:math";
+
 on-scroll, [v-on-scroll]{ visibility: hidden }
 
 $aos-duration: 0.5s!default;
-$aos-delay: $aos-duration/10!default;
+$aos-delay: math.div($aos-duration,10)!default;
 $aos-easing: $ease-out-cubic!default;
 $aos-animations-list: $animations!default;
 

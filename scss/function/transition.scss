@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @function allow($properties, $speed:$transition-duration, $easing:$ease-in-out-cubic) {
 
   $will-change : ();
@@ -20,9 +22,9 @@
 }
 
 $transition-duration : 0.3s !default;
-$transition-delay : $transition-duration/6 !default;
+$transition-delay : math.div($transition-duration,6) !default;
 
-$speed-very-fast : $transition-duration/2 !default;
+$speed-very-fast : math.div($transition-duration,2) !default;
 $speed-fast      : $transition-duration !default;
 $speed-slow      : $transition-duration*2 !default;
 $speed-very-slow : $transition-duration*4 !default;

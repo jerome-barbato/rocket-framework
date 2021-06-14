@@ -1,6 +1,8 @@
+@use "sass:math";
+
 $grid-space: 0 !default;
 $grid-margin : 0 $grid-space !default;
-$grid-col-padding : $grid-space/2 !default;
+$grid-col-padding : math.div($grid-space,2) !default;
 $grid-row-margin : $grid-space*2 !default;
 $grid-row-padding: false !default;
 
@@ -56,10 +58,10 @@ $grid-col-padding-mobile: 0 !default;
 	@each $count in $grid-col-count{
 		@for $i from 1 through $count{
 			[data-col="#{$i}/#{$count}"] {
-				flex-basis: (100%/($count/$i));
-				.ie &{ max-width: (100%/($count/$i)) }
+				flex-basis: math.div(100%,math.div($count,$i));
+				.ie &{ max-width: math.div(100%,math.div($count,$i)) }
 			}
-			[data-col-offset="#{$i}/#{$count}"] { margin-left: (100%/($count/$i)) }
+			[data-col-offset="#{$i}/#{$count}"] { margin-left: math.div(100%,math.div($count,$i)) }
 		}
 	}
 
@@ -74,17 +76,17 @@ $grid-col-padding-mobile: 0 !default;
 	}
 
 	[data-col="1/3"] {
-		flex-basis: (100%/3);
-		.ie &{ max-width: (100%/3) }
+		flex-basis: math.div(100%,3);
+		.ie &{ max-width: math.div(100%,3) }
 	}
-	[data-col="1/4"] { flex-basis: (100%/4);
-		.ie &{ max-width: (100%/4) }
+	[data-col="1/4"] { flex-basis: math.div(100%,4);
+		.ie &{ max-width: math.div(100%,4) }
 	}
-	[data-col="2/3"] { flex-basis: 2*(100%/3);
-		.ie &{ max-width: 2*(100%/3) }
+	[data-col="2/3"] { flex-basis: 2*math.div(100%,3);
+		.ie &{ max-width: 2*math.div(100%,3) }
 	}
-	[data-col="3/4"] { flex-basis: 3*(100%/4);
-		.ie &{ max-width: 3*(100%/4) }
+	[data-col="3/4"] { flex-basis: 3*math.div(100%,4);
+		.ie &{ max-width: 3*math.div(100%,4) }
 	}
 
 
@@ -109,8 +111,8 @@ $grid-col-padding-mobile: 0 !default;
 		@media #{$to-tablet} {
 			@each $count in $grid-col-count-mobile{
 				@for $i from 1 through $count{
-					[data-mobile-col="#{$i}/#{$count}"] { flex-basis: (100%/($count/$i)) }
-					[data-mobile-col-offset="#{$i}/#{$count}"] { margin-left: (100%/($count/$i)) }
+					[data-mobile-col="#{$i}/#{$count}"] { flex-basis: math.div(100%,math.div($count,$i)) }
+					[data-mobile-col-offset="#{$i}/#{$count}"] { margin-left: math.div(100%,math.div($count,$i)) }
 				}
 			}
 		}
@@ -136,24 +138,24 @@ $grid-col-padding-mobile: 0 !default;
 
 			@each $count in $grid-col-count-mobile{
 				@for $i from 1 through $count{
-					[data-tab-col="#{$i}/#{$count}"] { flex-basis: (100%/($count/$i)) }
-					[data-tab-col-offset="#{$i}/#{$count}"] { margin-left: (100%/($count/$i)) }
+					[data-tab-col="#{$i}/#{$count}"] { flex-basis: math.div(100%,math.div($count,$i)) }
+					[data-tab-col-offset="#{$i}/#{$count}"] { margin-left: math.div(100%,math.div($count,$i)) }
 				}
 			}
 		} @else {
 			@each $count in $grid-col-count{
 				@for $i from 1 through $count{
-					[data-tab-col="#{$i}/#{$count}"] { flex-basis: (100%/($count/$i)) }
-					[data-tab-col-offset="#{$i}/#{$count}"] { margin-left: (100%/($count/$i)) }
+					[data-tab-col="#{$i}/#{$count}"] { flex-basis: math.div(100%,math.div($count,$i)) }
+					[data-tab-col-offset="#{$i}/#{$count}"] { margin-left: math.div(100%,math.div($count,$i)) }
 				}
 			}
 		}
 
 		[data-tab-col="1/2"] { flex-basis: 50% }
-		[data-tab-col="1/3"] { flex-basis: (100%/3) }
-		[data-tab-col="1/4"] { flex-basis: (100%/4) }
-		[data-tab-col="2/3"] { flex-basis: 2*(100%/3) }
-		[data-tab-col="3/4"] { flex-basis: 3*(100%/4) }
+		[data-tab-col="1/3"] { flex-basis: math.div(100%,3) }
+		[data-tab-col="1/4"] { flex-basis: math.div(100%,4) }
+		[data-tab-col="2/3"] { flex-basis: 2*math.div(100%,3) }
+		[data-tab-col="3/4"] { flex-basis: 3*math.div(100%,4) }
 	}
 }
 

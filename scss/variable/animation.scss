@@ -1,6 +1,8 @@
+@use "sass:math";
+
 $animation-duration     : 1s !default;
 $animation-offset       : 50% !default;
 $animation-offset-rem   : 6rem !default;
-$animation-delay        : $animation-duration/10 !default;
+$animation-delay        : math.div($animation-duration,10)!default;
 $animation-delay-values : 35 !default;
 $animation-reveal-color : #eee !default;

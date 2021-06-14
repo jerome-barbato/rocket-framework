@@ -1,7 +1,9 @@
+@use "sass:math";
+
 @mixin aspect-ratio($ratio) {
   position: relative;
   &:after {
-    display: block; content: ""; width: 100%; padding-top: (1/$ratio) * 100%;
+    display: block; content: ""; width: 100%; padding-top: math.div(1,$ratio) * 100%;
   }
 }
 
@@ -9,7 +11,7 @@
   position: relative;
   &:after {
     display: block; content: ""; width: 100%;
-    padding-top: ((((1/$ratio))*(1-$remain))/$remain) * 100%;
+    padding-top: math.div(((math.div(1,$ratio))*(1-$remain)),$remain) * 100%;
   }
 }
 

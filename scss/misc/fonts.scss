@@ -2,21 +2,22 @@ $font-families : ()!default;
 $font-woof2 : true!default;
 $font-display : swap!default;
 
-  @each $font in $fonts {
+@each $font in $fonts {
 
-    $family   : nth($font, 1);
-    $variant  : nth($font, 2);
-    $weight   : nth($font, 3);
-    $style    : nth($font, 4);
-    $stretch  : nth($font, 5);
-    $fallback : nth($font, 6);
-    $src      : #{$family}-#{$variant};
+  $family   : nth($font, 1);
+  $variant  : nth($font, 2);
+  $weight   : nth($font, 3);
+  $style    : nth($font, 4);
+  $stretch  : nth($font, 5);
+  $fallback : nth($font, 6);
+  $version  : nth($font, 7);
+  $src      : #{$family}-#{$variant};
 
   @if $font-woof2{
     @font-face {
       font-family: "#{$family}";
-      src: url('#{$font-path}/#{$src}.woff2') format('woff2'),
-      url('#{$font-path}/#{$src}.woff') format('woff');
+      src: url('#{$font-path}/#{$src}.woff2?#{$version}') format('woff2'),
+      url('#{$font-path}/#{$src}.woff?#{$version}') format('woff');
       font-weight: #{$weight};
       font-style: #{$style};
       font-stretch: #{$stretch};
@@ -26,7 +27,7 @@ $font-display : swap!default;
   @else{
     @font-face {
       font-family: "#{$family}";
-      src: url('#{$font-path}/#{$src}.woff') format('woff');
+      src: url('#{$font-path}/#{$src}.woff?#{$version}') format('woff');
       font-weight: #{$weight};
       font-style: #{$style};
       font-stretch: #{$stretch};
@@ -34,8 +35,8 @@ $font-display : swap!default;
     }
   }
 
-    @if not map-has-key($font-families, to-lower-case($family)){
-      $new-font: (to-lower-case($family): '#{$family}, #{$fallback}');
-      $font-families : map-merge($font-families, $new-font);
-    }
+  @if not map-has-key($font-families, to-lower-case($family)){
+    $new-font: (to-lower-case($family): '#{$family}, #{$fallback}');
+    $font-families : map-merge($font-families, $new-font);
   }
+}
